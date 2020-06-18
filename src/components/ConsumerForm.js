@@ -70,23 +70,23 @@ class ConsumerForm extends Component {
 
     return (
         <div className="ConsumerForm">
-          <h1 class="VisaBlue">Consumer Information Form</h1>
+          <h2 class="VisaBlue">Consumer Information Form</h2>
           <Form onSubmit={that.handleSubmit}>
           <div className="theRow">
                 <Form.Control placeholder="First name" id="rightMarg" onChange={that.handleFirstNameChange}/>
                 <Form.Control placeholder="Last name" id="leftMarg" onChange={that.handleLastNameChange}/>
-            </div>
-            <Form.Group controlId="formGroupEmail" className="formField">
-              <Form.Label>Email address</Form.Label>
+          </div>
+          <div className="theRow"> 
+            <Form.Group controlId="formGroupEmail" id="rightMarg">
               <Form.Control type="email" placeholder="Enter email" onChange={that.handleEmailChange} />
             </Form.Group>
-            <Form.Group controlId="formGroupCreditCard" className="formField">
-              <Form.Label>CreditCard</Form.Label>
+            <Form.Group controlId="formGroupCreditCard" id="leftMarg">
               <Form.Control type="password" placeholder="CreditCard" onChange={that.handleCreditCardChange} />
             </Form.Group>
-            <Button variant="primary" type="submit">
+          </div>
+          <Button variant="primary" type="submit">
               Submit
-            </Button>
+          </Button>
           </Form>
           <br></br>
           <h1 class="VisaBlue">Response: {this.state.Response}</h1>
