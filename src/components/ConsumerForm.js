@@ -84,15 +84,15 @@ class ConsumerForm extends Component {
               <Form.Control type="password" placeholder="CreditCard" onChange={that.handleCreditCardChange} />
             </Form.Group>
           </div>
-          <Button variant="primary" type="submit">
-              Submit
+          <Button variant="primary" type="submit" id="buttonBlue">
+              <a id='submitText'>Submit</a><a  id='goldenArrow'> {'➤'} </a>
           </Button>
+          
           </Form>
           <br></br>
-          <h1 class="VisaBlue">Response: {this.state.Response}</h1>
-          <h1 class="VisaBlue">Alias: {this.state.Alias}</h1>
-          <h1 class="VisaBlue">Message Box: {this.state.MessageBox}</h1>
-
+          <h1 class="smallVisaBlue">Response: {this.state.Response}</h1>
+          <h1 class="smallVisaBlue">Alias: {this.state.Alias}</h1>
+          <h1 class="smallVisaBlue">Message Box: {this.state.MessageBox}</h1>
         </div>  
         
       );

@@ -82,8 +82,18 @@
   display: block;
   margin-block-start: 0.67em;
   margin-block-end: 0.67em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
+  margin-inline-start: 10%;
+  margin-inline-end: 10%;
+}
+
+.smallVisaBlue {
+  color: #1a1f71;
+  font-family: "Open Sans", sans-serif,Tahoma;
+  font-weight: 300;
+  font-size: 1.5em;
+  display: flex;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 .navBlue {
@@ -126,3 +136,23 @@ input.form-control:hover {
   position: relative;
   float: left;
 }
+
+#buttonBlue {
+  background-color: #1a1f71 !important;
+  min-width: 130px !important;
+  font-family: "Open Sans", sans-serif,Tahoma;
+  font-size: 15px;
+}
+
+#goldenArrow {
+  color: #f7b600 !important;
+  font-weight: 500;
+  font-size: 13px;
+
+}
+
+#submitText {
+  margin-right: 3px;
+  margin-left:14px;
+}
+
