@@ -17,7 +17,7 @@ class App extends Component {
   
     return (
     <div className="App">
-      <h1>{'Title: ' + this.state.mainArray[0]}</h1>
+      {/* <h1>{'Title: ' + this.state.mainArray[0]}</h1> */}
       <ConsumerForm></ConsumerForm>
     </div>
     )
