@@ -67,4 +67,20 @@
 
 .VisaBlue {
   color: #1a1f71;
+  font-family: visa-font,sans-serif,Tahoma;
+}
+
+.navBlue {
+  background-color: #1a1f71;
+}
+
+.navText{
+  color: white !important;
+  font-family: visa-font,sans-serif,Tahoma;
+  font-size: 12px;
+}
+
+.visaLogo{
+  max-height: 30px;
+  max-width: flex;
 }
