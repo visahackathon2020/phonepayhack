@@ -88,6 +88,7 @@
 
 .navBlue {
   background-color: #1a1f71;
+  
 }
 
 .navText{
@@ -97,8 +98,11 @@
 }
 
 .visaLogo{
-  max-height: 30px;
+  max-height: 25px;
   max-width: flex;
+  margin-bottom: 3px;
+  margin-top: 3px;
+  
 }
 
 .form-control:focus {
@@ -109,4 +113,16 @@
 input.form-control:hover {
   border-color: #52bbd7;
   box-shadow: 0 0 7px #52bbd7;
+}
+
+#indicatorStripe {
+  background: #f7b600;
+  height: 3px;
+  position: relative;
+  z-index: 90;
+}
+
+#navOptions {
+  position: relative;
+  float: left;
 }
