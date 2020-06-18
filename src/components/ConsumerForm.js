@@ -9,14 +9,14 @@ class ConsumerForm extends Component {
     this.state={
         Response: "Not yet requested",
         Alias: "No alias generated",
-        Password: "",
+        CreditCard: "",
         Email: "",
         FirstName: "",
         LastName: "",
         MessageBox: ""
       }
       this.handleEmailChange = this.handleEmailChange.bind(this)
-      this.handlePasswordChange = this.handlePasswordChange.bind(this)
+      this.handleCreditCardChange = this.handleCreditCardChange.bind(this)
       this.handleFirstNameChange = this.handleFirstNameChange.bind(this)
       this.handleLastNameChange = this.handleLastNameChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
@@ -27,8 +27,8 @@ class ConsumerForm extends Component {
     this.setState({Email: e.target.value});
   }
 
-  handlePasswordChange(e){
-    this.setState({Password: e.target.value});
+  handleCreditCardChange(e){
+    this.setState({CreditCard: e.target.value});
   }
 
   handleFirstNameChange(e){
@@ -40,8 +40,7 @@ class ConsumerForm extends Component {
   }
 
   handleSubmit(e){
-    alert("")
-    var outStr  ="Your email was " + this.state.Email + ", your password was " + this.state.Password + ", and your full name was " + this.state.FirstName
+    var outStr  ="Your email was " + this.state.Email + ", your CreditCard was " + this.state.CreditCard + ", and your full name was " + this.state.FirstName
     outStr += " " + this.state.LastName
     this.setState({MessageBox: outStr})
 
@@ -81,9 +80,9 @@ class ConsumerForm extends Component {
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" placeholder="Enter email" onChange={that.handleEmailChange} />
             </Form.Group>
-            <Form.Group controlId="formGroupPassword" className="formField">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" onChange={that.handlePasswordChange} />
+            <Form.Group controlId="formGroupCreditCard" className="formField">
+              <Form.Label>CreditCard</Form.Label>
+              <Form.Control type="password" placeholder="CreditCard" onChange={that.handleCreditCardChange} />
             </Form.Group>
             <Button variant="primary" type="submit">
               Submit
