@@ -41,7 +41,7 @@
 .ConsumerForm {
   margin-left: 0%;
   margin-right: 0%;
-  background-color: lightblue;
+  background-color: white;
 }
 
 .formField {
@@ -63,4 +63,8 @@
 
 #leftMarg {
   margin-left: 2.5%;
+}
+
+.VisaBlue {
+  color: #1a1f71;
 }

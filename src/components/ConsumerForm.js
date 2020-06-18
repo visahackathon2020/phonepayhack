@@ -70,7 +70,7 @@ class ConsumerForm extends Component {
 
     return (
         <div className="ConsumerForm">
-          <h1>Consumer Information Form</h1>
+          <h1 class="VisaBlue">Consumer Information Form</h1>
           <Form onSubmit={that.handleSubmit}>
           <div className="theRow">
                 <Form.Control placeholder="First name" id="rightMarg" onChange={that.handleFirstNameChange}/>
@@ -89,9 +89,9 @@ class ConsumerForm extends Component {
             </Button>
           </Form>
           <br></br>
-          <h1>Response: {this.state.Response}</h1>
-          <h1>Alias: {this.state.Alias}</h1>
-          <h1>Message Box: {this.state.MessageBox}</h1>
+          <h1 class="VisaBlue">Response: {this.state.Response}</h1>
+          <h1 class="VisaBlue">Alias: {this.state.Alias}</h1>
+          <h1 class="VisaBlue">Message Box: {this.state.MessageBox}</h1>
 
         </div>  
         
