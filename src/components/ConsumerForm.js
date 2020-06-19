@@ -1,12 +1,15 @@
 import React, { Component} from 'react';
 import {Form, Row, Col, Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import GetInvoiceForm from './GetInvoiceForm';
 
 
 class ConsumerForm extends Component {
   constructor(props) {
     super(props)
     this.state={
+        DoesInvoiceExist: false,
+        InvoiceCode: "",
         Response: "Not yet requested",
         Alias: "No alias generated",
         CreditCard: "",
@@ -19,7 +22,9 @@ class ConsumerForm extends Component {
       this.handleCreditCardChange = this.handleCreditCardChange.bind(this)
       this.handleFirstNameChange = this.handleFirstNameChange.bind(this)
       this.handleLastNameChange = this.handleLastNameChange.bind(this)
+      this.handleFindOrder = this.handleFindOrder.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
+      this.newCodePage = this.newCodePage.bind(this)
 
   }
 
@@ -59,14 +64,29 @@ class ConsumerForm extends Component {
     e.preventDefault()
   }
 
+  handleFindOrder(orderStr){
+    this.setState({DoesInvoiceExist: true});
+    this.setState({InvoiceCode: orderStr})
+    // alert('Handling invoice with str of ' + orderStr)
+  }
+
+  newCodePage(){
+    this.setState({DoesInvoiceExist: false})
+    this.setState({InvoiceCode: ""})
+  }
+
   render() {
     
     const that = this;
     // Do this for the form submission https://stackoverflow.com/questions/23427384/get-form-data-in-reactjs
 
-    
+    if (!this.state.DoesInvoiceExist){
+      return(
+        <GetInvoiceForm action={this.handleFindOrder} revert={this.newCodePage}></GetInvoiceForm>
+      )
+    }
 
-    
+
 
     return (
         <div className="ConsumerForm">
@@ -84,15 +104,22 @@ class ConsumerForm extends Component {
               <Form.Control type="password" placeholder="CreditCard" onChange={that.handleCreditCardChange} />
             </Form.Group>
           </div>
-          <Button variant="primary" type="submit" id="buttonBlue">
-              <a id='submitText'>Submit</a><a  id='goldenArrow'> {'➤'} </a>
-          </Button>
+          <div className="buttonsRow">
+            <Button variant="secondary" onClick={()=>this.newCodePage()} id="buttonBlue">
+                Re-Enter Code
+            </Button>
+            <Button variant="primary" type="submit" id="buttonBlue">
+                <a id='submitText'>Submit</a><a  id='goldenArrow'> {'➤'} </a>
+            </Button>
+          </div>
           
           </Form>
           <br></br>
+          
           <h1 class="smallVisaBlue">Response: {this.state.Response}</h1>
           <h1 class="smallVisaBlue">Alias: {this.state.Alias}</h1>
           <h1 class="smallVisaBlue">Message Box: {this.state.MessageBox}</h1>
+          <h1 class="smallVisaBlue">Invoice Code: {this.state.InvoiceCode}</h1>
         </div>  
         
       );

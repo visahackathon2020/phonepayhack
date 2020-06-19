@@ -57,6 +57,13 @@
   margin-right: 10%;
 }
 
+.buttonsRow {
+  display: inline;
+  flex-direction: horizontal;
+  
+}
+
+
 #rightMarg {
   margin-right: 1%;
   margin-bottom: 2%;
@@ -142,6 +149,9 @@ input.form-control:hover {
   min-width: 130px !important;
   font-family: "Open Sans", sans-serif,Tahoma;
   font-size: 15px;
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right:10px;
 }
 
 #goldenArrow {
@@ -156,3 +166,17 @@ input.form-control:hover {
   margin-left:14px;
 }
 
+#specialCode {
+  display: block;
+  text-align: center !important; 
+  width: 33%; 
+  margin-left: 33%;
+  margin-right: 33%;
+  margin-bottom: 20px;
+  font-family: "Open Sans", sans-serif,Tahoma;
+  font-weight: 300;
+}
+
+#specialCodeField {
+  text-align: center;
+}
