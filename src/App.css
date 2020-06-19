@@ -98,7 +98,9 @@
   font-family: "Open Sans", sans-serif,Tahoma;
   font-weight: 300;
   font-size: 1.5em;
-  display: flex;
+  display: block;
+  text-align: left;
+  
   margin-left: 10%;
   margin-right: 10%;
 }

@@ -10,13 +10,13 @@ class ConsumerForm extends Component {
     this.state={
         DoesInvoiceExist: false,
         InvoiceCode: "",
-        Response: "Not yet requested",
-        Alias: "No alias generated",
+        OrderPrice: "Loading...",
+        MerchantName: "Loading...",
+        InvoiceDescription: "Loading...",
         CreditCard: "",
         Email: "",
         FirstName: "",
-        LastName: "",
-        MessageBox: ""
+        LastName: ""
       }
       this.handleEmailChange = this.handleEmailChange.bind(this)
       this.handleCreditCardChange = this.handleCreditCardChange.bind(this)
@@ -45,9 +45,14 @@ class ConsumerForm extends Component {
   }
 
   handleSubmit(e){
-    var outStr  ="Your email was " + this.state.Email + ", your CreditCard was " + this.state.CreditCard + ", and your full name was " + this.state.FirstName
-    outStr += " " + this.state.LastName
-    this.setState({MessageBox: outStr})
+    alert("Paid!")
+
+    e.preventDefault()
+  }
+
+  handleFindOrder(orderStr){
+    this.setState({DoesInvoiceExist: true});
+    this.setState({InvoiceCode: orderStr})
 
     fetch('https://randomuser.me/api/')
     .then(response => {
@@ -55,19 +60,11 @@ class ConsumerForm extends Component {
       throw new Error('Request failed.');
     })
     .then(data => {
-      this.setState({Response: "Merchant name was " + data.results[0].name.first + ' ' + data.results[0].name.last,
-      Alias: "Merchant alias was " + data.results[0].email})
+      this.setState({MerchantName: data.results[0].name.first + ' ' + data.results[0].name.last,
+      OrderPrice: '$' +Math.floor(Math.random()*1000)/100,
+      InvoiceDescription: 'Asked ' + data.results[0].name.first + ' for a service'})
     })
 
-    
-    
-    e.preventDefault()
-  }
-
-  handleFindOrder(orderStr){
-    this.setState({DoesInvoiceExist: true});
-    this.setState({InvoiceCode: orderStr})
-    // alert('Handling invoice with str of ' + orderStr)
   }
 
   newCodePage(){
@@ -90,18 +87,23 @@ class ConsumerForm extends Component {
 
     return (
         <div className="ConsumerForm">
-          <h2 class="VisaBlue">Consumer Information Form</h2>
+          <h2 class="VisaBlue">Consumer Billing Form #{this.state.InvoiceCode}</h2>
+          <h1 class="smallVisaBlue">Merchant Name: {this.state.MerchantName}</h1>
+          <h1 class="smallVisaBlue">Invoice Cost: {this.state.OrderPrice}</h1>
+          <h1 class="smallVisaBlue">Invoice Description: {this.state.InvoiceDescription}</h1>
+          <br></br>
+
           <Form onSubmit={that.handleSubmit}>
           <div className="theRow">
                 <Form.Control placeholder="First name" id="rightMarg" onChange={that.handleFirstNameChange}/>
                 <Form.Control placeholder="Last name" id="leftMarg" onChange={that.handleLastNameChange}/>
           </div>
           <div className="theRow"> 
-            <Form.Group controlId="formGroupEmail" id="rightMarg">
-              <Form.Control type="email" placeholder="Enter email" onChange={that.handleEmailChange} />
+            <Form.Group controlId="formGroupCreditCard" id="rightMarg">
+              <Form.Control type="password" placeholder="Credit card #" onChange={that.handleCreditCardChange} />
             </Form.Group>
-            <Form.Group controlId="formGroupCreditCard" id="leftMarg">
-              <Form.Control type="password" placeholder="CreditCard" onChange={that.handleCreditCardChange} />
+            <Form.Group controlId="formGroupEmail" id="leftMarg">
+              <Form.Control type="email" placeholder="Enter email" onChange={that.handleEmailChange} />
             </Form.Group>
           </div>
           <div className="buttonsRow">
@@ -109,17 +111,11 @@ class ConsumerForm extends Component {
                 Re-Enter Code
             </Button>
             <Button variant="primary" type="submit" id="buttonBlue">
-                <a id='submitText'>Submit</a><a  id='goldenArrow'> {'➤'} </a>
+                <a id='submitText'>Pay</a><a  id='goldenArrow'> {'➤'} </a>
             </Button>
           </div>
           
           </Form>
-          <br></br>
-          
-          <h1 class="smallVisaBlue">Response: {this.state.Response}</h1>
-          <h1 class="smallVisaBlue">Alias: {this.state.Alias}</h1>
-          <h1 class="smallVisaBlue">Message Box: {this.state.MessageBox}</h1>
-          <h1 class="smallVisaBlue">Invoice Code: {this.state.InvoiceCode}</h1>
         </div>  
         
       );
