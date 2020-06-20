@@ -9,39 +9,57 @@ class MerchantForm extends Component {
     this.state={
         Response: "Not yet requested",
         Alias: "No alias generated",
-        CreditCard: "",
+        Name: "",
         Email: "",
-        FirstName: "",
-        LastName: "",
+        Country: "",
+        BIN: "",
+        PAN: "",
+        InvoiceAmt: "",
+        InvoiceDesc: "",
         MessageBox: ""
       }
+      this.handleNameChange = this.handleNameChange.bind(this)
       this.handleEmailChange = this.handleEmailChange.bind(this)
-      this.handleCreditCardChange = this.handleCreditCardChange.bind(this)
-      this.handleFirstNameChange = this.handleFirstNameChange.bind(this)
-      this.handleLastNameChange = this.handleLastNameChange.bind(this)
+      this.handleCountryChange = this.handleCountryChange.bind(this)
+      this.handleBINChange = this.handleBINChange.bind(this)
+      this.handlePANChange = this.handlePANChange.bind(this)
+      this.handleInvoiceAmtChange = this.handleInvoiceAmtChange.bind(this)
+      this.handleInvoiceDescChange = this.handleInvoiceDescChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
 
+  }
+
+  handleNameChange(e){
+    this.setState({Name: e.target.value});
   }
 
   handleEmailChange(e){
     this.setState({Email: e.target.value});
   }
 
-  handleCreditCardChange(e){
-    this.setState({CreditCard: e.target.value});
+  handleCountryChange(e) {
+    this.setState({Country: e.target.value});
   }
 
-  handleFirstNameChange(e){
-    this.setState({FirstName: e.target.value});
+  handleBINChange(e) {
+    this.setState({BIN: e.target.value});
   }
 
-  handleLastNameChange(e){
-    this.setState({LastName: e.target.value});
+  handlePANChange(e) {
+    this.setState({PAN: e.target.value});
+  }
+
+  handleInvoiceAmtChange(e) {
+    this.setState({InvoiceAmt: e.target.value});
+  }
+
+  handleInvoiceDescChange(e) {
+    this.setState({InvoiceDesc: e.target.value});
   }
 
   handleSubmit(e){
-    var outStr  ="Your email was " + this.state.Email + ", your CreditCard was " + this.state.CreditCard + ", and your full name was " + this.state.FirstName
-    outStr += " " + this.state.LastName
+    var outStr  = "Business name was " + this.state.Name + ", Email was " + this.state.Email + ", BIN was " + this.state.BIN + ", PAN was " + this.state.PAN
+    + ", country was " + this.state.Country + ", Invoice Amout: " + this.state.InvoiceAmt + ", Invoice Description: " + this.state.InvoiceDesc
     this.setState({MessageBox: outStr})
 
     fetch('https://randomuser.me/api/')
@@ -73,15 +91,37 @@ class MerchantForm extends Component {
         <h2 class="VisaBlue">Merchant Information Form</h2>
           <Form onSubmit={that.handleSubmit}>
           <div className="theRow">
-                <Form.Control placeholder="First name" id="rightMarg" onChange={that.handleFirstNameChange}/>
-                <Form.Control placeholder="Last name" id="leftMarg" onChange={that.handleLastNameChange}/>
+                <Form.Group as={Col} controlId="formGridName">
+                  <Form.Control placeholder="Business name" onChange={that.handleNameChange}/>
+                </Form.Group>
+                <Form.Group as={Col} controlId="formGridEmail">
+                  <Form.Control type="email" placeholder="Enter email" onChange={that.handleEmailChange}/>
+                </Form.Group>
+                <Form.Group as={Col} controlId="formGridCountry">
+                  <Form.Control as="select" defaultValue="Choose..." onChange={that.handleCountryChange}>
+                    <option>Choose...</option>
+                    <option>United States</option>
+                    <option>United Kingdom</option>
+                    <option>Canada</option>
+                    <option>Mexico</option>
+                    <option>China</option>
+                  </Form.Control>
+                </Form.Group>
           </div>
           <div className="theRow"> 
-            <Form.Group controlId="formGroupEmail" id="rightMarg">
-              <Form.Control type="email" placeholder="Enter email" onChange={that.handleEmailChange} />
+            <Form.Group as={Col} controlId="formBIN">
+              <Form.Control type="password" placeholder="Business Identification Number" onChange={that.handleBINChange} />
             </Form.Group>
-            <Form.Group controlId="formGroupCreditCard" id="leftMarg">
-              <Form.Control type="password" placeholder="CreditCard" onChange={that.handleCreditCardChange} />
+            <Form.Group as={Col} controlId="formPAN">
+              <Form.Control type="password" placeholder="Payment Account Number" onChange={that.handlePANChange} />
+            </Form.Group>
+          </div>
+          <div className="theRow">
+            <Form.Group as={Col} controlId="formInvoiceAmt">
+              <Form.Control placeholder="Invoice amount" onChange={that.handleInvoiceAmtChange}/>
+            </Form.Group>
+            <Form.Group as={Col} controlId="formInvoiceDesc">
+              <Form.Control placeholder="Invoice description" onChange={that.handleInvoiceDescChange}/>
             </Form.Group>
           </div>
           <Button variant="primary" type="submit" id="buttonBlue">
