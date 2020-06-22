@@ -65,6 +65,14 @@ class MerchantForm extends Component {
     // + ", country was " + this.state.Country + ", Invoice Amout: " + this.state.InvoiceAmt + ", Invoice Description: " + this.state.InvoiceDesc
   
     var url = 'https://kylepence.dev:5000/invoices'
+    // const options = {
+    //   method : "POST",
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: body_str
+    // };
+
     fetch(url, {
       method:"POST",
       body: JSON.stringify({
@@ -72,6 +80,7 @@ class MerchantForm extends Component {
           invoiceAmt: "10.50",
           invoiceDesc: "3 Tacos"
           })
+          
       })
       .then(result => {
           console.log(result)

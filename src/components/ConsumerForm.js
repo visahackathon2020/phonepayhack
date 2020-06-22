@@ -54,15 +54,22 @@ class ConsumerForm extends Component {
     this.setState({DoesInvoiceExist: true});
     this.setState({InvoiceCode: orderStr})
 
-    fetch('https://randomuser.me/api/')
+
+    fetch('https://kylepence.dev:5000/invoices/' + orderStr)
     .then(response => {
       if(response.ok) return response.json();
+      
       throw new Error('Request failed.');
     })
     .then(data => {
-      this.setState({MerchantName: data.results[0].name.first + ' ' + data.results[0].name.last,
-      OrderPrice: '$' +Math.floor(Math.random()*1000)/100,
-      InvoiceDescription: 'Asked ' + data.results[0].name.first + ' for a service'})
+      console.log(data)
+      
+      this.setState({MerchantName: data.result.invoiceObj.MerchantName + ' ',
+      OrderPrice: data.result.invoiceObj.invoiceAmt,
+      InvoiceDescription:  data.result.invoiceObj.invoiceDesc})
+    }).catch(error =>{
+      this.setState({DoesInvoiceExist: false});
+      this.setState({InvoiceCode: ""})
     })
 
   }
