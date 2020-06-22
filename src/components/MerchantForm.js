@@ -77,8 +77,9 @@ class MerchantForm extends Component {
       method:"POST",
       body: JSON.stringify({
           merchantid: "12345678900000000000000000000000",
-          invoiceAmt: "10.50",
-          invoiceDesc: "3 Tacos"
+          invoiceAmt: this.state.InvoiceAmt,
+          invoiceDesc: this.state.InvoiceDesc,
+          merchantName: this.state.Name
           })
           
       })
