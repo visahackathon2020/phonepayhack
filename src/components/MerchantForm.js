@@ -59,9 +59,8 @@ class MerchantForm extends Component {
 
   handleSubmit(e){
     var that=this
-    var outStr  = "Business name was " + this.state.Name + ", Email was " + this.state.Email + ", BIN was " + this.state.BIN + ", PAN was " + this.state.PAN
-    + ", country was " + this.state.Country + ", Invoice Amout: " + this.state.InvoiceAmt + ", Invoice Description: " + this.state.InvoiceDesc
-    this.setState({MessageBox: outStr})
+    // var outStr  = "Business name was " + this.state.Name + ", Email was " + this.state.Email + ", BIN was " + this.state.BIN + ", PAN was " + this.state.PAN
+    // + ", country was " + this.state.Country + ", Invoice Amout: " + this.state.InvoiceAmt + ", Invoice Description: " + this.state.InvoiceDesc
 
     var url = 'https://kylepence.dev:5000/invoices'
     fetch(url, {
@@ -142,9 +141,7 @@ class MerchantForm extends Component {
           
           </Form>
           <br></br>
-          <h1 class="smallVisaBlue">Response: {this.state.Response}</h1>
           <h1 class="smallVisaBlue">Alias: {this.state.Alias}</h1>
-          <h1 class="smallVisaBlue">Message Box: {this.state.MessageBox}</h1>
         </div>  
         
       );
