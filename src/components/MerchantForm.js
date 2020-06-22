@@ -1,3 +1,5 @@
+
+
 import React, { Component} from 'react';
 import {Form, Row, Col, Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -61,21 +63,21 @@ class MerchantForm extends Component {
     var that=this
     // var outStr  = "Business name was " + this.state.Name + ", Email was " + this.state.Email + ", BIN was " + this.state.BIN + ", PAN was " + this.state.PAN
     // + ", country was " + this.state.Country + ", Invoice Amout: " + this.state.InvoiceAmt + ", Invoice Description: " + this.state.InvoiceDesc
-
+  
     var url = 'https://kylepence.dev:5000/invoices'
     fetch(url, {
       method:"POST",
       body: JSON.stringify({
           merchantid: "12345678900000000000000000000000",
-          amount: "10",
-          items: [{"name": "taco", 
-                  "price": "10",
-                  "quantity": "1"}]
+          invoiceAmt: "10.50",
+          invoiceDesc: "3 Tacos"
           })
       })
       .then(result => {
+          console.log(result)
           // do something with the result
           result.json().then(data => {
+            console.log(data)
             console.log(data.result.invoiceCode)
             that.setState({Alias: data.result.invoiceCode})
           }
@@ -102,46 +104,36 @@ class MerchantForm extends Component {
         <h2 class="VisaBlue">Merchant Information Form</h2>
           <Form onSubmit={that.handleSubmit}>
           <div className="theRow">
-                <Form.Group as={Col} controlId="formGridName">
-                  <Form.Control placeholder="Business name" onChange={that.handleNameChange}/>
-                </Form.Group>
-                <Form.Group as={Col} controlId="formGridEmail">
-                  <Form.Control type="email" placeholder="Enter email" onChange={that.handleEmailChange}/>
-                </Form.Group>
-                <Form.Group as={Col} controlId="formGridCountry">
-                  <Form.Control as="select" defaultValue="Choose..." onChange={that.handleCountryChange}>
-                    <option>Choose...</option>
-                    <option>United States</option>
-                    <option>United Kingdom</option>
-                    <option>Canada</option>
-                    <option>Mexico</option>
-                    <option>China</option>
-                  </Form.Control>
-                </Form.Group>
+            <Form.Control placeholder="Business name" id="rightMarg" onChange={that.handleNameChange}/>         
+            <Form.Control type="email" placeholder="Enter email" id="leftMarg" onChange={that.handleEmailChange}/>
           </div>
           <div className="theRow"> 
-            <Form.Group as={Col} controlId="formBIN">
-              <Form.Control type="password" placeholder="Business Identification Number" onChange={that.handleBINChange} />
-            </Form.Group>
-            <Form.Group as={Col} controlId="formPAN">
-              <Form.Control type="password" placeholder="Payment Account Number" onChange={that.handlePANChange} />
-            </Form.Group>
+            <Form.Control type="password" placeholder="Business Identification Number" id="rightMarg" onChange={that.handleBINChange} />
+            <Form.Control as="select" defaultValue="Choose..." id="leftMarg" onChange={that.handleCountryChange}>
+              <option>Choose...</option>
+              <option>United States</option>
+              <option>United Kingdom</option>
+              <option>Canada</option>
+              <option>Mexico</option>
+              <option>China</option>
+            </Form.Control>
           </div>
           <div className="theRow">
-            <Form.Group as={Col} controlId="formInvoiceAmt">
-              <Form.Control placeholder="Invoice amount" onChange={that.handleInvoiceAmtChange}/>
-            </Form.Group>
-            <Form.Group as={Col} controlId="formInvoiceDesc">
-              <Form.Control placeholder="Invoice description" onChange={that.handleInvoiceDescChange}/>
-            </Form.Group>
+            <Form.Control type="password" placeholder="Payment Account Number" id="rightMarg" onChange={that.handlePANChange} />
+            <Form.Control placeholder="Invoice amount" id="leftMarg" onChange={that.handleInvoiceAmtChange}/>
           </div>
+          <dvi className="theRow">
+            <textarea class="form-control" placeholder="Invoice description" onChange={that.handleInvoiceDescChange} rows="3"></textarea>
+          </dvi>
           <Button variant="primary" type="submit" id="buttonBlue">
               <a id='submitText'>Submit</a><a  id='goldenArrow'> {'➤'} </a>
           </Button>
           
           </Form>
           <br></br>
+          <h1 class="smallVisaBlue">Response: {this.state.Response}</h1>
           <h1 class="smallVisaBlue">Alias: {this.state.Alias}</h1>
+          <h1 class="smallVisaBlue">Message Box: {this.state.MessageBox}</h1>
         </div>  
         
       );
