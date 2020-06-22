@@ -58,21 +58,33 @@ class MerchantForm extends Component {
   }
 
   handleSubmit(e){
+    var that=this
     var outStr  = "Business name was " + this.state.Name + ", Email was " + this.state.Email + ", BIN was " + this.state.BIN + ", PAN was " + this.state.PAN
     + ", country was " + this.state.Country + ", Invoice Amout: " + this.state.InvoiceAmt + ", Invoice Description: " + this.state.InvoiceDesc
     this.setState({MessageBox: outStr})
 
-    fetch('https://randomuser.me/api/')
-    .then(response => {
-      if(response.ok) return response.json();
-      throw new Error('Request failed.');
-    })
-    .then(data => {
-      this.setState({Response: "Merchant name was " + data.results[0].name.first + ' ' + data.results[0].name.last,
-      Alias: "Merchant alias was " + data.results[0].email})
-    })
-
-    
+    var url = 'https://kylepence.dev:5000/invoices'
+    fetch(url, {
+      method:"POST",
+      body: JSON.stringify({
+          merchantid: "12345678900000000000000000000000",
+          amount: "10",
+          items: [{"name": "taco", 
+                  "price": "10",
+                  "quantity": "1"}]
+          })
+      })
+      .then(result => {
+          // do something with the result
+          result.json().then(data => {
+            console.log(data.result.invoiceCode)
+            that.setState({Alias: data.result.invoiceCode})
+          }
+            
+            
+            )
+         
+      })
     
     e.preventDefault()
   }
