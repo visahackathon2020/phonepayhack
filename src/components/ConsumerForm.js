@@ -14,6 +14,8 @@ class ConsumerForm extends Component {
         MerchantName: "Loading...",
         InvoiceDescription: "Loading...",
         CreditCard: "",
+        Expiration: "",
+        CVV: "",
         Email: "",
         FirstName: "",
         LastName: ""
@@ -42,6 +44,14 @@ class ConsumerForm extends Component {
 
   handleLastNameChange(e){
     this.setState({LastName: e.target.value});
+  }
+
+  handleExpirationChange(e){
+    this.setState({Expiration: e.target.value});
+  }
+
+  handleSecurityCodeChange(e){
+    this.setState({CVV: e.target.value});
   }
 
   handleSubmit(e){
@@ -102,17 +112,28 @@ class ConsumerForm extends Component {
 
           <Form onSubmit={that.handleSubmit}>
           <div className="theRow">
-                <Form.Control placeholder="First name" id="rightMarg" onChange={that.handleFirstNameChange}/>
-                <Form.Control placeholder="Last name" id="leftMarg" onChange={that.handleLastNameChange}/>
+              <Form.Group as={Col} md="4">
+                <Form.Control placeholder="First name" onChange={that.handleFirstNameChange}/>
+              </Form.Group>
+              <Form.Group as={Col} md="4">
+                <Form.Control placeholder="Last name" onChange={that.handleLastNameChange}/>
+              </Form.Group>
+              <Form.Group as={Col} md="4">
+                <Form.Control type="email" placeholder="Enter email" onChange={that.handleEmailChange}/>
+              </Form.Group>
           </div>
-          <div className="theRow"> 
-            <Form.Group controlId="formGroupCreditCard" id="rightMarg">
-              <Form.Control type="password" placeholder="Credit card #" onChange={that.handleCreditCardChange} />
-            </Form.Group>
-            <Form.Group controlId="formGroupEmail" id="leftMarg">
-              <Form.Control type="email" placeholder="Enter email" onChange={that.handleEmailChange} />
-            </Form.Group>
+          <div className="theRow">
+              <Form.Group as={Col} md="6">
+                <Form.Control type="password" placeholder="Card number" onChange={that.handleCreditCardChange} />
+              </Form.Group>
+              <Form.Group as={Col} md="3">
+                <Form.Control placeholder="MM/YY" onChange={that.handleExpirationChange}/>
+              </Form.Group>
+              <Form.Group as={Col} md="3">
+                <Form.Control placeholder="CVV" onChange={that.handleSecurityCodeChange}/>
+              </Form.Group>
           </div>
+
           <div className="buttonsRow">
             <Button variant="secondary" onClick={()=>this.newCodePage()} id="buttonBlue">
                 Re-Enter Code
