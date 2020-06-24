@@ -1,5 +1,3 @@
-
-
 import React, { Component} from 'react';
 import {Form, Row, Col, Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -135,9 +133,11 @@ class MerchantForm extends Component {
           <dvi className="theRow">
             <textarea class="form-control" placeholder="Invoice description" onChange={that.handleInvoiceDescChange} rows="3"></textarea>
           </dvi>
+          
           <Button variant="primary" type="submit" id="buttonBlue">
               <a id='submitText'>Submit</a><a  id='goldenArrow'> {'➤'} </a>
           </Button>
+          
           
           </Form>
           <br></br>
