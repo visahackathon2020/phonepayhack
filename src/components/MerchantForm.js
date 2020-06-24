@@ -16,7 +16,9 @@ class MerchantForm extends Component {
         PAN: "",
         InvoiceAmt: "",
         InvoiceDesc: "",
-        MessageBox: ""
+        MessageBox: "",
+        ZipCode: "",
+        StateInUSA: ""
       }
       this.handleNameChange = this.handleNameChange.bind(this)
       this.handleEmailChange = this.handleEmailChange.bind(this)
@@ -26,6 +28,8 @@ class MerchantForm extends Component {
       this.handleInvoiceAmtChange = this.handleInvoiceAmtChange.bind(this)
       this.handleInvoiceDescChange = this.handleInvoiceDescChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
+      this.handleStateInUSAChange = this.handleStateInUSAChange.bind(this)
+      this.handleZipCodeChange = this.handleZipCodeChange.bind(this)
 
   }
 
@@ -57,28 +61,35 @@ class MerchantForm extends Component {
     this.setState({InvoiceDesc: e.target.value});
   }
 
+  handleStateInUSAChange(e) {
+    this.setState({StateInUSA: e.target.value});
+  }
+
+  handleZipCodeChange(e) {
+    this.setState({ZipCode: e.target.value});
+  }
+
   handleSubmit(e){
     var that=this
-    // var outStr  = "Business name was " + this.state.Name + ", Email was " + this.state.Email + ", BIN was " + this.state.BIN + ", PAN was " + this.state.PAN
-    // + ", country was " + this.state.Country + ", Invoice Amout: " + this.state.InvoiceAmt + ", Invoice Description: " + this.state.InvoiceDesc
-  
+
     var url = 'https://kylepence.dev:5000/invoices'
-    // const options = {
-    //   method : "POST",
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: body_str
-    // };
+    var myPostBody = {
+        "name": this.state.Name,
+        "country":"USA",
+        "state": this.state.StateInUSA,
+        "zipcode": this.state.ZipCode,
+        "PAN":this.state.PAN,
+        "items": [
+            {
+                "desc": this.state.InvoiceDesc,
+                "amount": this.state.InvoiceAmt
+            }
+        ]
+    }
 
     fetch(url, {
       method:"POST",
-      body: JSON.stringify({
-          merchantid: "12345678900000000000000000000000",
-          invoiceAmt: this.state.InvoiceAmt,
-          invoiceDesc: this.state.InvoiceDesc,
-          merchantName: this.state.Name
-          })
+      body: JSON.stringify(myPostBody)
           
       })
       .then(result => {
@@ -88,11 +99,7 @@ class MerchantForm extends Component {
             console.log(data)
             console.log(data.result.invoiceCode)
             that.setState({Alias: data.result.invoiceCode})
-          }
-            
-            
-            )
-         
+          })
       })
     
     e.preventDefault()
@@ -112,7 +119,7 @@ class MerchantForm extends Component {
         <h2 class="VisaBlue">Merchant Information Form</h2>
           <Form onSubmit={that.handleSubmit}>
           <div className="theRow">
-            <Form.Control placeholder="Business name" id="rightMarg" onChange={that.handleNameChange}/>         
+            <Form.Control placeholder="Merchant name" id="rightMarg" onChange={that.handleNameChange}/>         
             <Form.Control type="email" placeholder="Enter email" id="leftMarg" onChange={that.handleEmailChange}/>
           </div>
           <div className="theRow"> 
@@ -125,6 +132,10 @@ class MerchantForm extends Component {
               <option>Mexico</option>
               <option>China</option>
             </Form.Control>
+          </div>
+          <div className="theRow">
+            <Form.Control placeholder="State" id="rightMarg" onChange={that.handleStateInUSAChange} />
+            <Form.Control placeholder="Zip Code" id="leftMarg" onChange={that.handleZipCodeChange}/>
           </div>
           <div className="theRow">
             <Form.Control type="password" placeholder="Payment Account Number" id="rightMarg" onChange={that.handlePANChange} />
