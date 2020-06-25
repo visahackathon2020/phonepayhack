@@ -27,6 +27,8 @@ class ConsumerForm extends Component {
       this.handleFindOrder = this.handleFindOrder.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
       this.newCodePage = this.newCodePage.bind(this)
+      this.handleExpirationChange = this.handleExpirationChange.bind(this)
+      this.handleSecurityCodeChange = this.handleSecurityCodeChange.bind(this)
 
   }
 
@@ -55,7 +57,26 @@ class ConsumerForm extends Component {
   }
 
   handleSubmit(e){
-    alert("Paid!")
+
+    var url = 'https://kylepence.dev:5000/makePaymentOnInvoice'
+    var myPostBody = {
+        "senderPAN": this.state.CreditCard,
+        "invoiceId": this.state.InvoiceCode
+    }
+
+    fetch(url, {
+      method:"POST",
+      body: JSON.stringify(myPostBody)
+          
+      })
+      .then(result => {
+          console.log(result)
+          // do something with the result
+          result.json().then(data => {
+            console.log(data)
+            console.log(data.result)
+          })
+      })
 
     e.preventDefault()
   }
@@ -74,9 +95,9 @@ class ConsumerForm extends Component {
     .then(data => {
       console.log(data)
       
-      this.setState({MerchantName: data.result.invoiceObj.merchantName + ' ',
-      OrderPrice: data.result.invoiceObj.invoiceAmt,
-      InvoiceDescription:  data.result.invoiceObj.invoiceDesc})
+      this.setState({MerchantName: data.result.invoiceObj.name + ' ',
+      OrderPrice: data.result.invoiceObj.items[0].amount,
+      InvoiceDescription:  data.result.invoiceObj.items[0].desc})
     }).catch(error =>{
       this.setState({DoesInvoiceExist: false});
       this.setState({InvoiceCode: ""})
