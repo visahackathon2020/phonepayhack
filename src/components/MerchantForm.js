@@ -9,6 +9,7 @@ class MerchantForm extends Component {
     super(props)
     this.state={
         isLoggedIn: false,
+        wantsToLogIn: true,
         Response: "Not yet requested",
         Alias: "No alias generated",
         Name: "",
@@ -33,6 +34,7 @@ class MerchantForm extends Component {
       this.handleStateInUSAChange = this.handleStateInUSAChange.bind(this)
       this.handleZipCodeChange = this.handleZipCodeChange.bind(this)
       this.setIsLoggedIn = this.setIsLoggedIn.bind(this)
+      this.setWantsToLogIn = this.setWantsToLogIn.bind(this)
   }
 
   handleNameChange(e){
@@ -74,6 +76,11 @@ class MerchantForm extends Component {
   setIsLoggedIn(value){
     this.setState({isLoggedIn: value})
   }
+
+  setWantsToLogIn(value){
+    this.setState({wantsToLogIn: value})
+  }
+
 
   handleSubmit(e){
     var that=this
@@ -118,10 +125,10 @@ class MerchantForm extends Component {
     // Do this for the form submission https://stackoverflow.com/questions/23427384/get-form-data-in-reactjs
 
     
-    if (!this.state.isLoggedIn){
+    if (this.state.wantsToLogIn){
       return (
         <div className="MerchantForm">
-          <MerchantLogin action={that.setIsLoggedIn}></MerchantLogin>
+          <MerchantLogin setIsLoggedIn={that.setIsLoggedIn} setWantsToLogIn={that.setWantsToLogIn}></MerchantLogin>
         </div>
       
         )
@@ -160,8 +167,8 @@ class MerchantForm extends Component {
           </dvi>
           
           <div className="buttonsRow">
-          <Button variant="secondary" onClick={()=>this.setIsLoggedIn(false)} id="buttonBlue">
-                Log-In Again
+          <Button variant="secondary" onClick={()=>this.setWantsToLogIn(true)} id="buttonBlue">
+                Log-In Instead
             </Button>
           <Button variant="primary" type="submit" id="buttonBlue">
               <a id='submitText'>Submit</a><a  id='goldenArrow'> {'➤'} </a>

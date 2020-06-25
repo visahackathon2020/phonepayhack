@@ -23,8 +23,11 @@ class MerchantLogin extends Component {
     return (
         <div className="MerchantLogin">
           <h2 class="VisaBlue">Login Page</h2>
-            <Button variant="secondary" onClick={()=>that.props.action(true)} id="buttonBlue">
-                Click to log in
+            <div>
+                <h2>[form]</h2>
+            </div>
+            <Button variant="secondary" onClick={()=>that.props.setWantsToLogIn(false)} id="buttonBlue">
+                Skip logging in
             </Button>
         </div>  
         
