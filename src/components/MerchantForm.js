@@ -1,18 +1,20 @@
 import React, { Component} from 'react';
 import {Form, Row, Col, Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import MerchantLogin from './MerchantLogin';
 
 
 class MerchantForm extends Component {
   constructor(props) {
     super(props)
     this.state={
+        isLoggedIn: false,
         Response: "Not yet requested",
         Alias: "No alias generated",
         Name: "",
         Email: "",
         Country: "",
-        BIN: "",
+        BusinessName: "",
         PAN: "",
         InvoiceAmt: "",
         InvoiceDesc: "",
@@ -23,14 +25,14 @@ class MerchantForm extends Component {
       this.handleNameChange = this.handleNameChange.bind(this)
       this.handleEmailChange = this.handleEmailChange.bind(this)
       this.handleCountryChange = this.handleCountryChange.bind(this)
-      this.handleBINChange = this.handleBINChange.bind(this)
+      this.handleBusinessNameChange = this.handleBusinessNameChange.bind(this)
       this.handlePANChange = this.handlePANChange.bind(this)
       this.handleInvoiceAmtChange = this.handleInvoiceAmtChange.bind(this)
       this.handleInvoiceDescChange = this.handleInvoiceDescChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
       this.handleStateInUSAChange = this.handleStateInUSAChange.bind(this)
       this.handleZipCodeChange = this.handleZipCodeChange.bind(this)
-
+      this.setIsLoggedIn = this.setIsLoggedIn.bind(this)
   }
 
   handleNameChange(e){
@@ -45,8 +47,8 @@ class MerchantForm extends Component {
     this.setState({Country: e.target.value});
   }
 
-  handleBINChange(e) {
-    this.setState({BIN: e.target.value});
+  handleBusinessNameChange(e) {
+    this.setState({BusinessName: e.target.value});
   }
 
   handlePANChange(e) {
@@ -69,12 +71,17 @@ class MerchantForm extends Component {
     this.setState({ZipCode: e.target.value});
   }
 
+  setIsLoggedIn(value){
+    this.setState({isLoggedIn: value})
+  }
+
   handleSubmit(e){
     var that=this
 
     var url = 'https://kylepence.dev:5000/invoices'
     var myPostBody = {
         "name": this.state.Name,
+        "businessName": this.state.BusinessName,
         "country":"USA",
         "state": this.state.StateInUSA,
         "zipcode": this.state.ZipCode,
@@ -111,9 +118,16 @@ class MerchantForm extends Component {
     // Do this for the form submission https://stackoverflow.com/questions/23427384/get-form-data-in-reactjs
 
     
-
+    if (!this.state.isLoggedIn){
+      return (
+        <div className="MerchantForm">
+          <MerchantLogin action={that.setIsLoggedIn}></MerchantLogin>
+        </div>
+      
+        )
+    }
     
-
+    
     return (
         <div className="MerchantForm">
         <h2 class="VisaBlue">Merchant Information Form</h2>
@@ -123,7 +137,7 @@ class MerchantForm extends Component {
             <Form.Control type="email" placeholder="Enter email" id="leftMarg" onChange={that.handleEmailChange}/>
           </div>
           <div className="theRow"> 
-            <Form.Control type="password" placeholder="Business Identification Number" id="rightMarg" onChange={that.handleBINChange} />
+            <Form.Control placeholder="Business Name" id="rightMarg" onChange={that.handleBusinessNameChange} />
             <Form.Control as="select" defaultValue="Choose..." id="leftMarg" onChange={that.handleCountryChange}>
               <option>Choose...</option>
               <option>United States</option>
@@ -145,9 +159,14 @@ class MerchantForm extends Component {
             <textarea class="form-control" placeholder="Invoice description" onChange={that.handleInvoiceDescChange} rows="3"></textarea>
           </dvi>
           
+          <div className="buttonsRow">
+          <Button variant="secondary" onClick={()=>this.setIsLoggedIn(false)} id="buttonBlue">
+                Log-In Again
+            </Button>
           <Button variant="primary" type="submit" id="buttonBlue">
               <a id='submitText'>Submit</a><a  id='goldenArrow'> {'➤'} </a>
           </Button>
+          </div>
           
           
           </Form>
