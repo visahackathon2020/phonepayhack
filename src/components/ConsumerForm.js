@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import {Form, Row, Col, Button} from 'react-bootstrap';
+import {Form, Row, Col, Button, FormGroup} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GetInvoiceForm from './GetInvoiceForm';
 
@@ -18,7 +18,8 @@ class ConsumerForm extends Component {
         CVV: "",
         Email: "",
         FirstName: "",
-        LastName: ""
+        LastName: "",
+        EmailReceipt: {isChecked: false}
       }
       this.handleEmailChange = this.handleEmailChange.bind(this)
       this.handleCreditCardChange = this.handleCreditCardChange.bind(this)
@@ -29,6 +30,7 @@ class ConsumerForm extends Component {
       this.newCodePage = this.newCodePage.bind(this)
       this.handleExpirationChange = this.handleExpirationChange.bind(this)
       this.handleSecurityCodeChange = this.handleSecurityCodeChange.bind(this)
+      this.handleEmailReceipt = this.handleEmailReceipt.bind(this)
 
   }
 
@@ -54,6 +56,10 @@ class ConsumerForm extends Component {
 
   handleSecurityCodeChange(e){
     this.setState({CVV: e.target.value});
+  }
+
+  handleEmailReceipt() {
+    this.setState({isChecked: !this.state.isChecked});
   }
 
   handleSubmit(e){
@@ -132,7 +138,7 @@ class ConsumerForm extends Component {
           <br></br>
 
           <Form onSubmit={that.handleSubmit}>
-          <div className="theRow">
+          <div className="consRow">
               <Form.Group as={Col} md="4">
                 <Form.Control placeholder="First name" onChange={that.handleFirstNameChange}/>
               </Form.Group>
@@ -143,7 +149,7 @@ class ConsumerForm extends Component {
                 <Form.Control type="email" placeholder="Enter email" onChange={that.handleEmailChange}/>
               </Form.Group>
           </div>
-          <div className="theRow">
+          <div className="consRow">
               <Form.Group as={Col} md="6">
                 <Form.Control type="password" placeholder="Card number" onChange={that.handleCreditCardChange} />
               </Form.Group>
@@ -153,6 +159,13 @@ class ConsumerForm extends Component {
               <Form.Group as={Col} md="3">
                 <Form.Control placeholder="CVV" onChange={that.handleSecurityCodeChange}/>
               </Form.Group>
+          </div>
+          <div className="consRow">
+            <div class="d-flex flex-row">
+              <Form.Group as={Col} id="formGridCheckbox">
+                <Form.Check type="checkbox" label="Email receipt" onChange={this.handleEmailReceipt}/>
+              </Form.Group>
+            </div>
           </div>
 
           <div className="buttonsRow">
