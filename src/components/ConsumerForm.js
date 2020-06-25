@@ -64,7 +64,7 @@ class ConsumerForm extends Component {
 
   handleSubmit(e){
 
-    var url = 'https://kylepence.dev:5000/makePaymentOnInvoice'
+    var url = 'https://kylepence.dev:5000/payment'
     var myPostBody = {
         "senderPAN": this.state.CreditCard,
         "invoiceId": this.state.InvoiceCode
