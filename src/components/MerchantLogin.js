@@ -10,7 +10,8 @@ class MerchantLogin extends Component {
   constructor(props) {
     super(props)
     this.state={
-        Response: "Not yet requested",
+        SignedIn: false,
+        FormInfoExists: false,
         Alias: "No alias generated",
         SpecialCode: "",
         MessageBox: ""
@@ -20,11 +21,48 @@ class MerchantLogin extends Component {
       
   }
 
+  componentDidMount(){
+    var that=this;
+    firebase.auth().onAuthStateChanged((user)=>{
+      this.setState({SignedIn: true})
+      if (this.state.SignedIn){
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+          // Send token to your backend via HTTPS
+          // ...
+          console.log(idToken)
+
+          var url = 'https://kylepence.dev:5000/merchants/docExists'
+          var myPostBody = {"authToken": idToken}
+
+          fetch(url, {
+            method:"POST",
+            body: JSON.stringify(myPostBody)
+                
+            })
+            .then(result => {
+                console.log(result)
+                // do something with the result
+                result.json().then(data => {
+                  var docExists = (data.result.docExists.toLowerCase() == "true")
+                  console.log(docExists)
+                  that.setState({FormInfoExists: docExists})
+                })
+            })
+
+        }).catch(function(error) {
+          // Handle error
+        });
+    } 
+    })
+
+  }
+
   
 
 
 
   render() {
+    const that2 = this;
 
     const config = {
       apiKey: "***REMOVED***",
@@ -41,26 +79,56 @@ class MerchantLogin extends Component {
         firebase.initializeApp(config);
     }
     const uiConfig = {
-        // Popup signin flow rather than redirect flow.
         signInFlow: 'popup',
-        // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-        signInSuccessUrl: '/signedIn',
-        // We will display Google and Facebook as auth providers.
+        
+        callbacks: {
+          signInSuccessWithAuthResult: (authResult, redirectUrl) => {
+            this.setState({SignedIn: true})
+            return false;
+          },
+        
+        },
         signInOptions: [
-          firebase.auth.EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD,  
           firebase.auth.GoogleAuthProvider.PROVIDER_ID,
           firebase.auth.FacebookAuthProvider.PROVIDER_ID
         ]
       };
 
+      if (that2.state.SignedIn){
+        if (!that2.state.FormInfoExists){
+        
+
+
+
+
+
+
+          return (
+            <div className="MerchantLogin">
+            <h2 class="VisaBlue">Login Page</h2>
+              <h1>Gotta Enter Info</h1>
+          </div> 
+          )
+        }
+
+
+        return (
+          <div className="MerchantLogin">
+            <h2 class="VisaBlue">Login Page</h2>
+              <h1>The form does exist! User...: {firebase.auth().currentUser.uid}</h1>
+          </div> 
+          )
+      }
+    
 
     const that = this;
     return (
         <div className="MerchantLogin">
           <h2 class="VisaBlue">Login Page</h2>
             <div>
-            <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
+            <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth() }/>
             </div>
+            <h1>Signed In: {this.state.SignedIn.toString()}</h1>
             <Button variant="secondary" onClick={()=>that.props.setWantsToLogIn(false)} id="buttonBlue">
                 Skip logging in
             </Button>
