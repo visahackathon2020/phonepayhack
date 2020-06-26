@@ -3,6 +3,7 @@ import {Form, Row, Col, Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import firebase from 'firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
+import FirstTimeMerchantForm from './FirstTimeMerchantForm';
 
 
 
@@ -24,8 +25,9 @@ class MerchantLogin extends Component {
   componentDidMount(){
     var that=this;
     firebase.auth().onAuthStateChanged((user)=>{
-      this.setState({SignedIn: true})
+      if (user !=null) {this.setState({SignedIn: true})}
       if (this.state.SignedIn){
+        
         firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
           // Send token to your backend via HTTPS
           // ...
@@ -117,20 +119,13 @@ class MerchantLogin extends Component {
       if (that2.state.SignedIn){
         if (!that2.state.FormInfoExists){
           
-          var myPostBody = {
-            "name": "Testing this",
-            "country":"USA",
-            "state": "CA",
-            "zipcode": "94404",
-            "PAN": "4957030420210496"
-          }
-
-          that2.submitMerchantPayment(myPostBody)
+          
           
           
           return (
             <div className="MerchantLogin">
             <h2 class="VisaBlue">Login Page</h2>
+            <FirstTimeMerchantForm></FirstTimeMerchantForm>
             <h1>Gotta Enter Info ...  {this.state.IdToken}</h1>
           </div> 
           )
