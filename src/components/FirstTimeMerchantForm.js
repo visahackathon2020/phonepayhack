@@ -44,7 +44,16 @@ class FirstTimeMerchantForm extends Component {
 
   handleSubmit(e){
     var that=this
-    alert("submitted!")
+
+    var myProps = {
+        name: this.state.Name,
+        country: "USA",
+        state: this.state.StateInUSA,
+        zipcode: this.state.ZipCode,
+        PAN: this.state.PAN
+    }
+
+    that.props.action(myProps)
     
     e.preventDefault()
   }
