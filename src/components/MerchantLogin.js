@@ -74,6 +74,9 @@ class MerchantLogin extends Component {
           // do something with the result
           result.json().then(data => {
             console.log(data)
+            if (data.status=="success"){
+              this.setState({FormInfoExists: true})
+            }
           })
       })
     
@@ -124,7 +127,7 @@ class MerchantLogin extends Component {
           
           return (
             <div className="MerchantLogin">
-            <h2 class="VisaBlue">Login Page</h2>
+            <h2 class="VisaBlue">First Time Merchant Form</h2>
             <FirstTimeMerchantForm action={this.submitMerchantPayment}></FirstTimeMerchantForm>
             <h1>Gotta Enter Info ...  {this.state.IdToken}</h1>
           </div> 
@@ -134,8 +137,8 @@ class MerchantLogin extends Component {
 
         return (
           <div className="MerchantLogin">
-            <h2 class="VisaBlue">Login Page</h2>
-              <h1>The form does exist! User...: {firebase.auth().currentUser.uid}</h1>
+            <h2 class="VisaBlue">Invoice Creation Form</h2>
+              <h1>[put info to create invoice here]</h1>
           </div> 
           )
       }
