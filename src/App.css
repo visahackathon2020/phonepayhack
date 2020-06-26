@@ -189,3 +189,14 @@ input.form-control:hover {
 #specialCodeField {
   text-align: center;
 }
+
+#invoiceRow {
+  display: block;
+  text-align: center !important; 
+  width: 33%; 
+  margin-left: 33%;
+  margin-right: 33%;
+  margin-bottom: 20px;
+  font-family: "Open Sans", sans-serif,Tahoma;
+  font-weight: 300;
+}
