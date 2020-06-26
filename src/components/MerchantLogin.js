@@ -11,14 +11,14 @@ class MerchantLogin extends Component {
     super(props)
     this.state={
         SignedIn: false,
+        IdToken: null,
         FormInfoExists: false,
         Alias: "No alias generated",
         SpecialCode: "",
         MessageBox: ""
       }
 
-     
-      
+      this.submitMerchantPayment = this.submitMerchantPayment.bind(this);
   }
 
   componentDidMount(){
@@ -31,21 +31,21 @@ class MerchantLogin extends Component {
           // ...
           console.log(idToken)
 
-          var url = 'https://kylepence.dev:5000/merchants/docExists'
-          var myPostBody = {"authToken": idToken}
+          var url = 'https://kylepence.dev:5000/merchants'
 
           fetch(url, {
-            method:"POST",
-            body: JSON.stringify(myPostBody)
-                
-            })
+            method:"GET",
+            headers: {'Authorization': idToken}
+          })
             .then(result => {
                 console.log(result)
                 // do something with the result
                 result.json().then(data => {
+                  console.log(data)
                   var docExists = (data.result.docExists.toLowerCase() == "true")
                   console.log(docExists)
                   that.setState({FormInfoExists: docExists})
+                  that.setState({IdToken: idToken})
                 })
             })
 
@@ -55,6 +55,26 @@ class MerchantLogin extends Component {
     } 
     })
 
+  }
+
+  submitMerchantPayment(myPostBody){
+    var url = 'https://kylepence.dev:5000/merchants'
+
+    fetch(url, {
+      method:"POST",
+      body: JSON.stringify(myPostBody),
+      headers:
+          {Authorization: this.state.IdToken}
+      }
+      )
+      .then(result => {
+          console.log(result)
+          // do something with the result
+          result.json().then(data => {
+            console.log(data)
+          })
+      })
+    
   }
 
   
@@ -96,17 +116,22 @@ class MerchantLogin extends Component {
 
       if (that2.state.SignedIn){
         if (!that2.state.FormInfoExists){
-        
+          
+          var myPostBody = {
+            "name": "Testing this",
+            "country":"USA",
+            "state": "CA",
+            "zipcode": "94404",
+            "PAN": "4957030420210496"
+          }
 
-
-
-
-
-
+          that2.submitMerchantPayment(myPostBody)
+          
+          
           return (
             <div className="MerchantLogin">
             <h2 class="VisaBlue">Login Page</h2>
-              <h1>Gotta Enter Info</h1>
+            <h1>Gotta Enter Info ...  {this.state.IdToken}</h1>
           </div> 
           )
         }
