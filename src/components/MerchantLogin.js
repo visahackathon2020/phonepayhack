@@ -85,25 +85,23 @@ class MerchantLogin extends Component {
   }
 
   submitMerchantInvoice(myPostBody){
-    var url = ''
+    var url = 'https://kylepence.dev:5000/invoices'
 
     fetch(url, {
       method:"POST",
       body: JSON.stringify(myPostBody),
       headers:
           {Authorization: this.state.IdToken}
-      }
-      )
-      .then(result => {
-          console.log(result)
-          // do something with the result
-          result.json().then(data => {
-            console.log(data)
-            if (data.status=="success"){
-              this.setState({FormInfoExists: true})
-            }
-          })
       })
+      .then(result => {
+        console.log(result)
+        // do something with the result
+        result.json().then(data => {
+          console.log(data)
+          console.log(data.result.invoiceCode)
+          this.setState({Alias: data.result.invoiceCode})
+        })
+    })
     
   }
 
