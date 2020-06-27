@@ -7,6 +7,10 @@ class MerchantInvoice extends Component {
   constructor(props) {
     super(props)
     this.state={
+        Name: "",
+        StateInUSA: "",
+        ZipCode: "",
+        PAN: "",
         BusinessName: "",
         InvoiceAmt: "",
         InvoiceDesc: ""
