@@ -16,7 +16,7 @@ class MerchantInvoice extends Component {
       this.handleBusinessEmailChange = this.handleBusinessEmailChange.bind(this)
       this.handleInvoiceAmtChange = this.handleInvoiceAmtChange.bind(this)
       this.handleInvoiceDescChange = this.handleInvoiceDescChange.bind(this)
-      this.handleSubmit = this.handleSubmit(this)
+      this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleBusinessNameChange(e){
@@ -37,40 +37,43 @@ class MerchantInvoice extends Component {
 
 
   handleSubmit(e){
-    var that=this
-
     var myProps = {
-        BusinessName: this.state.BusinessName,
-        BusinessEmail: this.state.BusinessEmail,
-        InvoiceAmt: this.state.InvoiceAmt,
-        InvoiceDesc: this.state.InvoiceDesc
+        merchantToken: this.props.IdToken,
+        businessName: this.state.BusinessName,
+        email: this.state.BusinessEmail,
+        items: [
+            {
+                desc: this.state.InvoiceDesc,
+                amount: this.state.InvoiceAmt
+            }
+        ]
     }
+    e.preventDefault()
+    console.log(e)
+    
     console.log(myProps)
-
-    that.props.action(myProps)
-
+    
+    this.props.action(myProps)
   }
 
   render() {
-    
-    const that = this;
     // Do this for the form submission https://stackoverflow.com/questions/23427384/get-form-data-in-reactjs
     
     
     return (
         <div className="MerchantInvoice">
-          <Form onSubmit={that.handleSubmit}>
+          <Form onSubmit={this.handleSubmit}>
             <div id="invoiceRow">
-                <Form.Control placeholder="Business name" id="center" onChange={that.handleBusinessNameChange}/>         
+                <Form.Control placeholder="Business name" id="center" onChange={this.handleBusinessNameChange}/>         
             </div>
             <div id="invoiceRow">
-                <Form.Control placeholder="Business email" id="center" onChange={that.handleBusinessEmailChange}/>         
+                <Form.Control placeholder="Business email" id="center" onChange={this.handleBusinessEmailChange}/>         
             </div>
             <div id="invoiceRow">
-                <Form.Control placeholder="Invoice amount" id="center" onChange={that.handleInvoiceAmtChange}/>         
+                <Form.Control placeholder="Invoice amount" id="center" onChange={this.handleInvoiceAmtChange}/>         
             </div>
             <div id="invoiceRow">
-                <textarea class="form-control" placeholder="Invoice description" onChange={that.handleInvoiceDescChange} rows="5"></textarea>
+                <textarea class="form-control" placeholder="Invoice description" onChange={this.handleInvoiceDescChange} rows="5"></textarea>
             </div>
             
             <div className="buttonsRow">
