@@ -9,7 +9,7 @@ class MerchantInvoice extends Component {
     this.state={
         BusinessName: "",
         InvoiceAmt: "",
-        InvoiceDesc: "",
+        InvoiceDesc: ""
       }
       this.handleBusinessNameChange = this.handleBusinessNameChange.bind(this)
       this.handleInvoiceAmtChange = this.handleInvoiceAmtChange.bind(this)
