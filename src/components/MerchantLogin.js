@@ -161,7 +161,7 @@ class MerchantLogin extends Component {
         return (
           <div className="MerchantLogin">
             <h2 class="VisaBlue">Invoice Creation Form</h2>
-              <MerchantInvoice action={this.submitMerchantInvoice}></MerchantInvoice>
+              <MerchantInvoice action={this.submitMerchantInvoice} IdToken={this.state.IdToken}></MerchantInvoice>
           </div> 
           )
       }
