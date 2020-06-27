@@ -85,7 +85,6 @@ class MerchantLogin extends Component {
   }
 
   submitMerchantInvoice(myPostBody){
-    alert("sent")
     var url = 'https://kylepence.dev:5000/invoices'
 
     fetch(url, {
