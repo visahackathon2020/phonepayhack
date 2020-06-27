@@ -8,9 +8,10 @@ class MerchantInvoice extends Component {
     super(props)
     this.state={
         Name: "",
-        StateInUSA: "",
-        ZipCode: "",
+        Country: "",
         PAN: "",
+        ZipCode: "",
+        StateInUSA: "",
         BusinessName: "",
         InvoiceAmt: "",
         InvoiceDesc: ""
@@ -36,36 +37,18 @@ class MerchantInvoice extends Component {
   handleSubmit(e){
     var that=this
 
-    var url = 'https://kylepence.dev:5000/invoices'
-    var myPostBody = {
-        "name": this.state.Name,
-        "businessName": this.state.BusinessName,
-        "country":"USA",
-        "state": this.state.StateInUSA,
-        "zipcode": this.state.ZipCode,
-        "PAN":this.state.PAN,
-        "items": [
-            {
-                "desc": this.state.InvoiceDesc,
-                "amount": this.state.InvoiceAmt
-            }
-        ]
+    var myProps = {
+        name: this.state.Name,
+        country: "USA",
+        state: this.state.StateInUSA,
+        zipcode: this.state.ZipCode,
+        PAN: this.state.PAN,
+        BusinessName: this.state.BusinessName,
+        InvoiceAmt: this.state.InvoiceAmt,
+        InvoiceDesc: this.state.InvoiceDesc
     }
 
-    fetch(url, {
-      method:"POST",
-      body: JSON.stringify(myPostBody)
-          
-      })
-      .then(result => {
-          console.log(result)
-          // do something with the result
-          result.json().then(data => {
-            console.log(data)
-            console.log(data.result.invoiceCode)
-            that.setState({Alias: data.result.invoiceCode})
-          })
-      })
+    that.props.action(myProps)
     
     e.preventDefault()
   }

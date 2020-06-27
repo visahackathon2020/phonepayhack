@@ -21,6 +21,7 @@ class MerchantLogin extends Component {
       }
 
       this.submitMerchantPayment = this.submitMerchantPayment.bind(this);
+      this.submitMerchantInvoice = this.submitMerchantInvoice.bind(this);
   }
 
   componentDidMount(){
@@ -62,6 +63,29 @@ class MerchantLogin extends Component {
 
   submitMerchantPayment(myPostBody){
     var url = 'https://kylepence.dev:5000/merchants'
+
+    fetch(url, {
+      method:"POST",
+      body: JSON.stringify(myPostBody),
+      headers:
+          {Authorization: this.state.IdToken}
+      }
+      )
+      .then(result => {
+          console.log(result)
+          // do something with the result
+          result.json().then(data => {
+            console.log(data)
+            if (data.status=="success"){
+              this.setState({FormInfoExists: true})
+            }
+          })
+      })
+    
+  }
+
+  submitMerchantInvoice(myPostBody){
+    var url = ''
 
     fetch(url, {
       method:"POST",
@@ -139,7 +163,7 @@ class MerchantLogin extends Component {
         return (
           <div className="MerchantLogin">
             <h2 class="VisaBlue">Invoice Creation Form</h2>
-              <MerchantInvoice></MerchantInvoice>
+              <MerchantInvoice action={this.submitMerchantInvoice}></MerchantInvoice>
           </div> 
           )
       }
