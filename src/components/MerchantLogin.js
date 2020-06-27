@@ -122,9 +122,7 @@ class MerchantLogin extends Component {
       if (that2.state.SignedIn){
         if (!that2.state.FormInfoExists){
           
-          
-          
-          
+        
           return (
             <div className="MerchantLogin">
             <h2 class="VisaBlue">First Time Merchant Form</h2>
