@@ -7,11 +7,6 @@ class MerchantInvoice extends Component {
   constructor(props) {
     super(props)
     this.state={
-        Name: "",
-        Country: "",
-        PAN: "",
-        ZipCode: "",
-        StateInUSA: "",
         BusinessName: "",
         InvoiceAmt: "",
         InvoiceDesc: ""
@@ -38,16 +33,12 @@ class MerchantInvoice extends Component {
     var that=this
 
     var myProps = {
-        name: this.state.Name,
-        country: "USA",
-        state: this.state.StateInUSA,
-        zipcode: this.state.ZipCode,
-        PAN: this.state.PAN,
         BusinessName: this.state.BusinessName,
         InvoiceAmt: this.state.InvoiceAmt,
         InvoiceDesc: this.state.InvoiceDesc
     }
-
+    console.log(myProps)
+    alert("...")
     that.props.action(myProps)
     
     e.preventDefault()
@@ -68,9 +59,9 @@ class MerchantInvoice extends Component {
             <div id="invoiceRow">
                 <Form.Control placeholder="Invoice amount" id="center" onChange={that.handleInvoiceAmtChange}/>         
             </div>
-            <dvi id="invoiceRow">
+            <div id="invoiceRow">
                 <textarea class="form-control" placeholder="Invoice description" onChange={that.handleInvoiceDescChange} rows="5"></textarea>
-            </dvi>
+            </div>
             
             <div className="buttonsRow">
                 <Button variant="primary" type="submit" id="buttonBlue">
