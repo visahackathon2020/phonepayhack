@@ -162,9 +162,9 @@ class MerchantForm extends Component {
             <Form.Control type="password" placeholder="Payment Account Number" id="rightMarg" onChange={that.handlePANChange} />
             <Form.Control placeholder="Invoice amount" id="leftMarg" onChange={that.handleInvoiceAmtChange}/>
           </div>
-          <dvi className="theRow">
+          <div className="theRow">
             <textarea class="form-control" placeholder="Invoice description" onChange={that.handleInvoiceDescChange} rows="3"></textarea>
-          </dvi>
+          </div>
           
           <div className="buttonsRow">
           <Button variant="secondary" onClick={()=>this.setWantsToLogIn(true)} id="buttonBlue">
