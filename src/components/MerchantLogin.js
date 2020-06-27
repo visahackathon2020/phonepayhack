@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import firebase from 'firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import FirstTimeMerchantForm from './FirstTimeMerchantForm';
+import MerchantInvoice from './MerchantInvoice';
 
 
 
@@ -20,6 +21,7 @@ class MerchantLogin extends Component {
       }
 
       this.submitMerchantPayment = this.submitMerchantPayment.bind(this);
+      this.submitMerchantInvoice = this.submitMerchantInvoice.bind(this);
   }
 
   componentDidMount(){
@@ -82,6 +84,28 @@ class MerchantLogin extends Component {
     
   }
 
+  submitMerchantInvoice(myPostBody){
+    alert("sent")
+    var url = 'https://kylepence.dev:5000/invoices'
+
+    fetch(url, {
+      method:"POST",
+      body: JSON.stringify(myPostBody),
+      headers:
+          {Authorization: this.state.IdToken}
+      })
+      .then(result => {
+        console.log(result)
+        // do something with the result
+        result.json().then(data => {
+          console.log(data)
+          console.log(data.result.invoiceCode)
+          this.setState({Alias: data.result.invoiceCode})
+        })
+    })
+    
+  }
+
   
 
 
@@ -136,7 +160,7 @@ class MerchantLogin extends Component {
         return (
           <div className="MerchantLogin">
             <h2 class="VisaBlue">Invoice Creation Form</h2>
-              <h1>[put info to create invoice here]</h1>
+              <MerchantInvoice action={this.submitMerchantInvoice}></MerchantInvoice>
           </div> 
           )
       }
