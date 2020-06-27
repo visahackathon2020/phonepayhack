@@ -8,16 +8,23 @@ class MerchantInvoice extends Component {
     super(props)
     this.state={
         BusinessName: "",
+        BusinessEmail: "",
         InvoiceAmt: "",
         InvoiceDesc: ""
       }
       this.handleBusinessNameChange = this.handleBusinessNameChange.bind(this)
+      this.handleBusinessEmailChange = this.handleBusinessEmailChange.bind(this)
       this.handleInvoiceAmtChange = this.handleInvoiceAmtChange.bind(this)
       this.handleInvoiceDescChange = this.handleInvoiceDescChange.bind(this)
+      this.handleSubmit = this.handleSubmit(this)
   }
 
   handleBusinessNameChange(e){
     this.setState({BusinessName: e.target.value});
+  }
+
+  handleBusinessEmailChange(e) {
+      this.setState({BusinessEmail: e.target.value});
   }
 
   handleInvoiceAmtChange(e) {
@@ -34,14 +41,14 @@ class MerchantInvoice extends Component {
 
     var myProps = {
         BusinessName: this.state.BusinessName,
+        BusinessEmail: this.state.BusinessEmail,
         InvoiceAmt: this.state.InvoiceAmt,
         InvoiceDesc: this.state.InvoiceDesc
     }
     console.log(myProps)
-    alert("...")
+
     that.props.action(myProps)
-    
-    e.preventDefault()
+
   }
 
   render() {
@@ -55,6 +62,9 @@ class MerchantInvoice extends Component {
           <Form onSubmit={that.handleSubmit}>
             <div id="invoiceRow">
                 <Form.Control placeholder="Business name" id="center" onChange={that.handleBusinessNameChange}/>         
+            </div>
+            <div id="invoiceRow">
+                <Form.Control placeholder="Business email" id="center" onChange={that.handleBusinessEmailChange}/>         
             </div>
             <div id="invoiceRow">
                 <Form.Control placeholder="Invoice amount" id="center" onChange={that.handleInvoiceAmtChange}/>         
