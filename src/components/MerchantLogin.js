@@ -112,7 +112,6 @@ class MerchantLogin extends Component {
     }, function(error) {
       console.error('Sign Out Error', error);
     });
-    alert("Signed Out")
   }
 
 
@@ -159,7 +158,6 @@ class MerchantLogin extends Component {
             <div className="MerchantLogin">
             <h2 class="VisaBlue">First Time Merchant Form</h2>
             <FirstTimeMerchantForm action={this.submitMerchantPayment}></FirstTimeMerchantForm>
-            <h1>Gotta Enter Info ...  {this.state.IdToken}</h1>
           </div> 
           )
         }

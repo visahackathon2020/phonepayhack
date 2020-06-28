@@ -53,7 +53,6 @@ class MerchantInvoice extends Component {
     console.log(myProps)
     
     this.props.action(myProps)
-    alert("Invoice Created")
   }
 
 
