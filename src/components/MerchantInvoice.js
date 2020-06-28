@@ -50,10 +50,10 @@ class MerchantInvoice extends Component {
     }
     e.preventDefault()
     console.log(e)
-    
     console.log(myProps)
     
     this.props.action(myProps)
+
   }
 
   render() {
@@ -81,8 +81,10 @@ class MerchantInvoice extends Component {
                     <a id='submitText'>Submit</a><a  id='goldenArrow'> {'➤'} </a>
                 </Button>
             </div>
-          
-          
+
+            <br></br>
+            <br></br>
+            <h1 class="smallVisaBlue">Alias: {this.props.Alias}</h1>
           </Form>
         </div>  
         
