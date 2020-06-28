@@ -112,8 +112,8 @@ class MerchantLogin extends Component {
     }, function(error) {
       console.error('Sign Out Error', error);
     });
+    alert("Signed Out")
   }
-
 
 
   render() {
@@ -168,10 +168,10 @@ class MerchantLogin extends Component {
         return (
           <div className="MerchantLogin">
             <h2 class="VisaBlue">Invoice Creation Form</h2>
-              <Form onSubmit={this.handleLogout}>
                 <MerchantInvoice action={this.submitMerchantInvoice} IdToken={this.state.IdToken} Alias={this.state.Alias}></MerchantInvoice>
                 <br></br>
                 <br></br>
+              <Form onSubmit={this.handleLogout}>
                 <Button variant="primary" type="submit" id="buttonLogout">
                   <a id='logoutText'>Logout</a>
                 </Button>
