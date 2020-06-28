@@ -22,6 +22,7 @@ class MerchantLogin extends Component {
 
       this.submitMerchantPayment = this.submitMerchantPayment.bind(this);
       this.submitMerchantInvoice = this.submitMerchantInvoice.bind(this);
+      this.handleLogout = this.handleLogout.bind(this);
   }
 
   componentDidMount(){
@@ -105,7 +106,13 @@ class MerchantLogin extends Component {
     
   }
 
-  
+  handleLogout(e) {
+    firebase.auth().signOut().then(function() {
+      console.log('Signed Out');
+    }, function(error) {
+      console.error('Sign Out Error', error);
+    });
+  }
 
 
 
@@ -161,12 +168,14 @@ class MerchantLogin extends Component {
         return (
           <div className="MerchantLogin">
             <h2 class="VisaBlue">Invoice Creation Form</h2>
-              <MerchantInvoice action={this.submitMerchantInvoice} IdToken={this.state.IdToken} Alias={this.state.Alias}></MerchantInvoice>
-              <br></br>
-              <br></br>
-              <Button variant="primary" type="submit" id="buttonLogout">
-                <a id='logoutText'>Logout</a>
-              </Button>
+              <Form onSubmit={this.handleLogout}>
+                <MerchantInvoice action={this.submitMerchantInvoice} IdToken={this.state.IdToken} Alias={this.state.Alias}></MerchantInvoice>
+                <br></br>
+                <br></br>
+                <Button variant="primary" type="submit" id="buttonLogout">
+                  <a id='logoutText'>Logout</a>
+                </Button>
+              </Form>
           </div> 
           )
       }
