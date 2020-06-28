@@ -53,8 +53,9 @@ class MerchantInvoice extends Component {
     console.log(myProps)
     
     this.props.action(myProps)
-
+    alert("Invoice Created")
   }
+
 
   render() {
     // Do this for the form submission https://stackoverflow.com/questions/23427384/get-form-data-in-reactjs
@@ -77,7 +78,7 @@ class MerchantInvoice extends Component {
             </div>
             
             <div className="buttonsRow">
-                <Button variant="primary" type="submit" id="buttonBlue">
+                <Button variant="primary" type="submit" id="buttonBlue" onClick={this.handleSubmit}>
                     <a id='submitText'>Submit</a><a  id='goldenArrow'> {'➤'} </a>
                 </Button>
             </div>

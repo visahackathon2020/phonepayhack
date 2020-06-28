@@ -89,7 +89,7 @@ class FirstTimeMerchantForm extends Component {
           </div>
           <div className="buttonsRow">
           <Button variant="secondary" onClick={()=>alert("does nothing")} id="buttonBlue">
-                placeholder
+                Back
             </Button>
           <Button variant="primary" type="submit" id="buttonBlue">
               <a id='submitText'>Submit</a><a  id='goldenArrow'> {'➤'} </a>
