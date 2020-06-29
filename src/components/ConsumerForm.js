@@ -101,7 +101,7 @@ class ConsumerForm extends Component {
     .then(data => {
       console.log(data)
       
-      this.setState({MerchantName: data.result.invoiceObj.name + ' ',
+      this.setState({MerchantName: data.result.invoiceObj.businessName + ' ',
       OrderPrice: data.result.invoiceObj.items[0].amount,
       InvoiceDescription:  data.result.invoiceObj.items[0].desc})
     }).catch(error =>{
