@@ -150,6 +150,7 @@ class MerchantLogin extends Component {
         
         callbacks: {
           signInSuccessWithAuthResult: (authResult, redirectUrl) => {
+            this.setState({isLoading: true})
             this.setState({SignedIn: true})
             return false;
           },
