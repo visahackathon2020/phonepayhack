@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import {Form, Row, Col, Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MerchantLogin from './MerchantLogin';
+import LoadingPage from './LoadingPage';
 
 
 class MerchantForm extends Component {
@@ -21,7 +22,8 @@ class MerchantForm extends Component {
         InvoiceDesc: "",
         MessageBox: "",
         ZipCode: "",
-        StateInUSA: ""
+        StateInUSA: "",
+        isLoading: false
       }
       this.handleNameChange = this.handleNameChange.bind(this)
       this.handleEmailChange = this.handleEmailChange.bind(this)
@@ -82,6 +84,8 @@ class MerchantForm extends Component {
   }
 
 
+
+
   handleSubmit(e){
     var that=this
 
@@ -124,13 +128,19 @@ class MerchantForm extends Component {
     const that = this;
     // Do this for the form submission https://stackoverflow.com/questions/23427384/get-form-data-in-reactjs
 
-    
+    if (this.state.isLoading){
+      return (
+      <div className="MerchantForm">
+          <LoadingPage></LoadingPage>
+      </div>
+      )
+    }
+
     if (this.state.wantsToLogIn){
       return (
         <div className="MerchantForm">
           <MerchantLogin setIsLoggedIn={that.setIsLoggedIn} setWantsToLogIn={that.setWantsToLogIn}></MerchantLogin>
         </div>
-      
         )
     }
     
@@ -162,9 +172,9 @@ class MerchantForm extends Component {
             <Form.Control type="password" placeholder="Payment Account Number" id="rightMarg" onChange={that.handlePANChange} />
             <Form.Control placeholder="Invoice amount" id="leftMarg" onChange={that.handleInvoiceAmtChange}/>
           </div>
-          <dvi className="theRow">
+          <div className="theRow">
             <textarea class="form-control" placeholder="Invoice description" onChange={that.handleInvoiceDescChange} rows="3"></textarea>
-          </dvi>
+          </div>
           
           <div className="buttonsRow">
           <Button variant="secondary" onClick={()=>this.setWantsToLogIn(true)} id="buttonBlue">
@@ -178,9 +188,9 @@ class MerchantForm extends Component {
           
           </Form>
           <br></br>
-          <h1 class="smallVisaBlue">Response: {this.state.Response}</h1>
-          <h1 class="smallVisaBlue">Alias: {this.state.Alias}</h1>
-          <h1 class="smallVisaBlue">Message Box: {this.state.MessageBox}</h1>
+          <h2 class="smallVisaBlue">Response: {this.state.Response}</h2>
+          <h2 class="smallVisaBlue">Alias: {this.state.Alias}</h2>
+          <h2 class="smallVisaBlue">Message Box: {this.state.MessageBox}</h2>
         </div>  
         
       );
