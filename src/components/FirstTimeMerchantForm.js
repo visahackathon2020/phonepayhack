@@ -88,9 +88,6 @@ class FirstTimeMerchantForm extends Component {
             <Form.Control placeholder="Zip Code" id="leftMarg" onChange={that.handleZipCodeChange}/>
           </div>
           <div className="buttonsRow">
-          <Button variant="secondary" onClick={()=>alert("does nothing")} id="buttonBlue">
-                placeholder
-            </Button>
           <Button variant="primary" type="submit" id="buttonBlue">
               <a id='submitText'>Submit</a><a  id='goldenArrow'> {'➤'} </a>
           </Button>
