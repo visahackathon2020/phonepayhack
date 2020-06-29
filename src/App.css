@@ -163,6 +163,17 @@ input.form-control:hover {
   margin-right:10px;
 }
 
+#buttonLogout {
+  background-color: #ffffff !important;
+  border-color: #ffffff;
+  min-width: 100px !important;
+  font-family: "Open Sans", sans-serif,Tahoma;
+  font-size: 15px;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right:10px;
+}
+
 #goldenArrow {
   color: #f7b600 !important;
   font-weight: 500;
@@ -173,6 +184,11 @@ input.form-control:hover {
 #submitText {
   margin-right: 3px;
   margin-left:14px;
+}
+
+#logoutText {
+  justify-content: center;
+  color: #1a1f71;
 }
 
 #specialCode {
@@ -188,4 +204,15 @@ input.form-control:hover {
 
 #specialCodeField {
   text-align: center;
+}
+
+#invoiceRow {
+  display: block;
+  text-align: center !important; 
+  width: 33%; 
+  margin-left: 33%;
+  margin-right: 33%;
+  margin-bottom: 15px;
+  font-family: "Open Sans", sans-serif,Tahoma;
+  font-weight: 300;
 }
