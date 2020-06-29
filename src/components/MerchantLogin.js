@@ -32,7 +32,12 @@ class MerchantLogin extends Component {
   componentDidMount(){
     var that=this;
     firebase.auth().onAuthStateChanged((user)=>{
-      if (user !=null) {this.setState({SignedIn: true})}
+      if (user !=null) {
+        this.setState({SignedIn: true})
+        if (this.state.FormInfoExists == false){
+          this.setState({isLoading: true})
+        }
+      }
       if (user==null) that.setState({isLoading: false})
       if (this.state.SignedIn){
         
@@ -167,7 +172,7 @@ class MerchantLogin extends Component {
 
       if (that2.state.SignedIn){
         if (!that2.state.FormInfoExists){
-          
+          // that2.setState({isLoading: true})
         
           return (
             <div className="MerchantLogin">
