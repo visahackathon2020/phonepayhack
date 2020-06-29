@@ -178,9 +178,9 @@ class MerchantForm extends Component {
           
           </Form>
           <br></br>
-          <h1 class="smallVisaBlue">Response: {this.state.Response}</h1>
-          <h1 class="smallVisaBlue">Alias: {this.state.Alias}</h1>
-          <h1 class="smallVisaBlue">Message Box: {this.state.MessageBox}</h1>
+          <h2 class="smallVisaBlue">Response: {this.state.Response}</h2>
+          <h2 class="smallVisaBlue">Alias: {this.state.Alias}</h2>
+          <h2 class="smallVisaBlue">Message Box: {this.state.MessageBox}</h2>
         </div>  
         
       );

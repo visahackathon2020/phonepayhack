@@ -22,6 +22,7 @@ class MerchantLogin extends Component {
 
       this.submitMerchantPayment = this.submitMerchantPayment.bind(this);
       this.submitMerchantInvoice = this.submitMerchantInvoice.bind(this);
+      this.handleLogout = this.handleLogout.bind(this);
   }
 
   componentDidMount(){
@@ -85,7 +86,6 @@ class MerchantLogin extends Component {
   }
 
   submitMerchantInvoice(myPostBody){
-    alert("sent")
     var url = 'https://kylepence.dev:5000/invoices'
 
     fetch(url, {
@@ -106,8 +106,13 @@ class MerchantLogin extends Component {
     
   }
 
-  
-
+  handleLogout(e) {
+    firebase.auth().signOut().then(function() {
+      console.log('Signed Out');
+    }, function(error) {
+      console.error('Sign Out Error', error);
+    });
+  }
 
 
   render() {
@@ -151,7 +156,6 @@ class MerchantLogin extends Component {
             <div className="MerchantLogin">
             <h2 class="VisaBlue">First Time Merchant Form</h2>
             <FirstTimeMerchantForm action={this.submitMerchantPayment}></FirstTimeMerchantForm>
-            <h1>Gotta Enter Info ...  {this.state.IdToken}</h1>
           </div> 
           )
         }
@@ -160,7 +164,14 @@ class MerchantLogin extends Component {
         return (
           <div className="MerchantLogin">
             <h2 class="VisaBlue">Invoice Creation Form</h2>
-              <MerchantInvoice action={this.submitMerchantInvoice}></MerchantInvoice>
+                <MerchantInvoice action={this.submitMerchantInvoice} IdToken={this.state.IdToken} Alias={this.state.Alias}></MerchantInvoice>
+                <br></br>
+                <br></br>
+              <Form onSubmit={this.handleLogout}>
+                <Button variant="primary" type="submit" id="buttonLogout">
+                  <a id='logoutText'>Logout</a>
+                </Button>
+              </Form>
           </div> 
           )
       }
