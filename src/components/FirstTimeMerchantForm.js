@@ -70,7 +70,7 @@ class FirstTimeMerchantForm extends Component {
           <Form onSubmit={that.handleSubmit}>
           <div className="theRow">
             <Form.Control placeholder="Merchant name" id="rightMarg" onChange={that.handleNameChange}/>     
-            <Form.Control placeholder="Placeholder" id="leftMarg" />     
+            <Form.Control placeholder="Cardholder Name" id="leftMarg" />     
           </div>
           <div className="theRow"> 
             <Form.Control as="select" defaultValue="Choose..." id="rightMarg" onChange={that.handleCountryChange}>

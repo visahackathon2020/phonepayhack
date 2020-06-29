@@ -5,6 +5,8 @@ import firebase from 'firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import FirstTimeMerchantForm from './FirstTimeMerchantForm';
 import MerchantInvoice from './MerchantInvoice';
+import LoadingPage from './LoadingPage';
+
 
 
 
@@ -17,18 +19,21 @@ class MerchantLogin extends Component {
         FormInfoExists: false,
         Alias: "No alias generated",
         SpecialCode: "",
-        MessageBox: ""
+        MessageBox: "",
+        isLoading: true
       }
 
       this.submitMerchantPayment = this.submitMerchantPayment.bind(this);
       this.submitMerchantInvoice = this.submitMerchantInvoice.bind(this);
       this.handleLogout = this.handleLogout.bind(this);
-  }
+
+    }
 
   componentDidMount(){
     var that=this;
     firebase.auth().onAuthStateChanged((user)=>{
       if (user !=null) {this.setState({SignedIn: true})}
+      if (user==null) that.setState({isLoading: false})
       if (this.state.SignedIn){
         
         firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
@@ -51,14 +56,17 @@ class MerchantLogin extends Component {
                   console.log(docExists)
                   that.setState({FormInfoExists: docExists})
                   that.setState({IdToken: idToken})
+                  that.setState({isLoading: false})
                 })
             })
 
         }).catch(function(error) {
           // Handle error
+          
         });
     } 
     })
+
 
   }
 
@@ -147,6 +155,15 @@ class MerchantLogin extends Component {
           firebase.auth.FacebookAuthProvider.PROVIDER_ID
         ]
       };
+
+      if (that2.state.isLoading){
+        return (
+        <div className="MerchantLogin">
+            <LoadingPage></LoadingPage>
+        </div>
+        )
+      }
+
 
       if (that2.state.SignedIn){
         if (!that2.state.FormInfoExists){
