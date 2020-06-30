@@ -97,6 +97,7 @@ class MerchantForm extends Component {
         "state": this.state.StateInUSA,
         "zipcode": this.state.ZipCode,
         "PAN":this.state.PAN,
+        "email":this.state.Email,
         "items": [
             {
                 "desc": this.state.InvoiceDesc,
