@@ -152,7 +152,6 @@ class ConsumerForm extends Component {
           <h1 class="smallVisaBlue">Merchant Name: {this.state.MerchantName}</h1>
           <h1 class="smallVisaBlue">Invoice Cost: {this.state.OrderPrice}</h1>
           <h1 class="smallVisaBlue">Invoice Description: {this.state.InvoiceDescription}</h1>
-          <h1>Test: {}</h1>
 
           <br></br>
           <Form onSubmit={that.handleSubmit}>

@@ -27,8 +27,12 @@ class MerchantLogin extends Component {
       this.submitMerchantPayment = this.submitMerchantPayment.bind(this);
       this.submitMerchantInvoice = this.submitMerchantInvoice.bind(this);
       this.handleLogout = this.handleLogout.bind(this);
+      this.updateErrorMessage = this.updateErrorMessage.bind(this);
+  }
 
-    }
+  updateErrorMessage(errorMessage) {
+    this.setState({ErrorMessage: errorMessage})
+  }
 
   componentDidMount(){
     var that=this;
@@ -203,7 +207,7 @@ class MerchantLogin extends Component {
           return (
             <div className="MerchantLogin">
             <h2 class="VisaBlue">First Time Merchant Form</h2>
-            <FirstTimeMerchantForm action={this.submitMerchantPayment} ErrorMessage={this.state.ErrorMessage}></FirstTimeMerchantForm>
+            <FirstTimeMerchantForm action={this.submitMerchantPayment} ErrorMessage={this.state.ErrorMessage} onErrorMessageChange={this.updateErrorMessage}></FirstTimeMerchantForm>
           </div> 
           )
         }
@@ -212,7 +216,7 @@ class MerchantLogin extends Component {
         return (
           <div className="MerchantLogin">
             <h2 class="VisaBlue">Invoice Creation Form</h2>
-                <MerchantInvoice action={this.submitMerchantInvoice} IdToken={this.state.IdToken} Alias={this.state.Alias} ErrorMessage={this.state.ErrorMessage}></MerchantInvoice>
+                <MerchantInvoice action={this.submitMerchantInvoice} IdToken={this.state.IdToken} Alias={this.state.Alias} ErrorMessage={this.state.ErrorMessage} onErrorMessageChange={this.updateErrorMessage}></MerchantInvoice>
                 <br></br>
                 <br></br>
               <Form onSubmit={this.handleLogout}>
