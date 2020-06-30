@@ -50,8 +50,6 @@
   
 }
 
-.form-field {
-}
 
 .form-invalid-feedback {
   float:left;
@@ -85,6 +83,14 @@
   font-weight: 300;
 }
 
+#rightMargItems {
+  display: inline;
+  flex-direction: horizontal;
+  margin-right: 1%;
+  font-family: "Open Sans", sans-serif,Tahoma;
+  font-weight: 300;
+}
+
 #leftMarg {
   margin-left: 1%;
   margin-bottom: 2%;
@@ -92,6 +98,14 @@
   font-family: "Open Sans", sans-serif,Tahoma;
   font-weight: 300;
   
+}
+
+#leftMargItems {
+  display: inline;
+  flex-direction: horizontal;
+  margin-left: 1%;
+  font-family: "Open Sans", sans-serif,Tahoma;
+  font-weight: 300;
 }
 
 .VisaBlue {
@@ -174,6 +188,16 @@ input.form-control:hover {
   margin-right:10px;
 }
 
+#buttonBlueNoLeftMarg {
+  background-color: #1a1f71 !important;
+  min-width: 130px !important;
+  font-family: "Open Sans", sans-serif,Tahoma;
+  font-size: 15px;
+  margin-top: 20px;
+  margin-left: 0px !important;
+  
+}
+
 #buttonLogout {
   background-color: #ffffff !important;
   border-color: #ffffff;
@@ -195,6 +219,11 @@ input.form-control:hover {
 #submitText {
   margin-right: 3px;
   margin-left:14px;
+}
+
+#submitTextNoLeftMarg {
+  margin-left: 0px !important;
+  margin-right: 0px;
 }
 
 #logoutText {
