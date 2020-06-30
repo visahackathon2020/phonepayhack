@@ -93,13 +93,13 @@ class MerchantInvoice extends Component {
             </div>
             <div id="invoiceRow">
                 <ItemsListForm action={this.handleItemsChange} Items={this.state.Items} ErrorMessage={this.props.ErrorMessage}/>
-            </div>
-            
-            <div className="buttonsRow">
-                <Button variant="primary" type="submit" id="buttonBlue" onClick={this.handleSubmit}>
-                    <a id='submitText'>Submit</a><a  id='goldenArrow'> {'➤'} </a>
+                <Button variant="primary" type="submit" id="buttonBlueNoLeftMarg" onClick={this.handleSubmit}>
+                    <a id='submitTextNoLeftMarg'>Submit!!</a><a  id='goldenArrow'> {'➤'} </a>
                 </Button>
             </div>
+      
+            
+            
 
             <br></br>
             <br></br>

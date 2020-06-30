@@ -68,17 +68,17 @@ class ItemsListForm extends Component {
           {items.map((_, item) => (
             <div>
               <div id="invoiceRow">
-                <div className="form-field" id="rightMarg">
+                <div className="form-field" id="rightMargItems">
                   <Form.Control className={getFormClass(item,'desc')} placeholder="Item Description" onChange={this.handleDescChange(item)} value={this.props.Items[item].desc}/>
                   <label class="text-danger form-invalid-feedback">{getErrorMessage(item,'desc')[0]}</label>
                 </div>
-                <div className="form-field" id="leftMarg">
+                <div className="form-field" id="leftMargItems">
                   <Form.Control className={getFormClass(item,'amount')} placeholder="Item Amount" onChange={this.handleAmtChange(item)} value={this.props.Items[item].amount}/>         
                   <label class="text-danger form-invalid-feedback">{getErrorMessage(item,'amount')[0]}</label>
                 </div>
                 {(items.length > 1) ?
                   <div className="buttonsRow">
-                      <Button variant="primary" type="submit" id="buttonBlue" onClick={this.handleRemoveItem(item)}>
+                      <Button variant="primary" id="buttonBlue" onClick={this.handleRemoveItem(item)}>
                         Remove
                       </Button>
                   </div>
@@ -86,11 +86,11 @@ class ItemsListForm extends Component {
               </div>
             </div>
           ))}
-          <div className="buttonsRow">
-              <Button variant="primary" type="submit" id="buttonBlue" onClick={this.handleAddNewItem}>
+          
+              <Button variant="primary" id="buttonBlueNoLeftMarg" onClick={this.handleAddNewItem}>
                 +
               </Button>
-          </div>
+          
         </div>  
         
       );
