@@ -50,6 +50,13 @@
   
 }
 
+.form-field {
+}
+
+.form-invalid-feedback {
+  float:left;
+}
+
 .theRow {
   display: flex;
   flex-direction: horizontal;
@@ -73,7 +80,6 @@
 
 #rightMarg {
   margin-right: 1%;
-  margin-bottom: 2%;
   width: 50% !important;
   font-family: "Open Sans", sans-serif,Tahoma;
   font-weight: 300;
@@ -139,6 +145,11 @@
 input.form-control:hover {
   border-color: #52bbd7;
   box-shadow: 0 0 7px #52bbd7;
+}
+
+.form-control.form-invalid-border {
+  border-color: #dc3545;
+  box-shadow: 0 0 7px #dc3545;
 }
 
 #indicatorStripe {
