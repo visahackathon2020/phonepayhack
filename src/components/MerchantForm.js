@@ -121,12 +121,7 @@ class MerchantForm extends Component {
         zipcode: '',
         PAN:'',
         email:'',
-        items: [
-            {
-                desc: '',
-                amount: ''
-            }
-        ]
+        items: {}
     }
 
     fetch(url, {

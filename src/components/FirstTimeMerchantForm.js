@@ -23,22 +23,27 @@ class FirstTimeMerchantForm extends Component {
 
   handleNameChange(e){
     this.setState({Name: e.target.value});
+    this.props.onErrorMessageChange(this.props.ErrorMessage ? {...this.props.ErrorMessage, name:''}: null);
   }
 
   handleCountryChange(e) {
     this.setState({Country: e.target.value});
+    this.props.onErrorMessageChange(this.props.ErrorMessage ? {...this.props.ErrorMessage, country:''}: null);
   }
 
   handlePANChange(e) {
     this.setState({PAN: e.target.value});
+    this.props.onErrorMessageChange(this.props.ErrorMessage ? {...this.props.ErrorMessage, PAN:''}: null);
   }
 
   handleStateInUSAChange(e) {
     this.setState({StateInUSA: e.target.value});
+    this.props.onErrorMessageChange(this.props.ErrorMessage ? {...this.props.ErrorMessage, state:''}: null);
   }
 
   handleZipCodeChange(e) {
     this.setState({ZipCode: e.target.value});
+    this.props.onErrorMessageChange(this.props.ErrorMessage ? {...this.props.ErrorMessage, zipcode:''}: null);
   }
 
 
