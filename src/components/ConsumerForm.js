@@ -67,7 +67,8 @@ class ConsumerForm extends Component {
     var url = 'https://kylepence.dev:5000/payment'
     var myPostBody = {
         "senderPAN": this.state.CreditCard,
-        "invoiceId": this.state.InvoiceCode
+        "invoiceId": this.state.InvoiceCode,
+        "email": this.state.Email
     }
 
     fetch(url, {
