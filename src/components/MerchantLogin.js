@@ -236,7 +236,7 @@ class MerchantLogin extends Component {
             <div>
             <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth() }/>
             </div>
-            <h1>Signed In: {this.state.SignedIn.toString()}</h1>
+            
             <Button variant="secondary" onClick={()=>that.props.setWantsToLogIn(false)} id="buttonBlue">
                 Skip logging in
             </Button>
