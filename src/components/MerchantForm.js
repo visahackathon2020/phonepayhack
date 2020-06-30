@@ -8,6 +8,7 @@ class MerchantForm extends Component {
   constructor(props) {
     super(props)
     this.state={
+        ErrorMessage: null,
         isLoggedIn: false,
         wantsToLogIn: true,
         Response: "Not yet requested",
@@ -38,39 +39,46 @@ class MerchantForm extends Component {
   }
 
   handleNameChange(e){
-    this.setState({Name: e.target.value});
+    this.setState({Name: e.target.value,
+      ErrorMessage: this.state.ErrorMessage ? {...this.state.ErrorMessage, name:''}: null});
   }
 
   handleEmailChange(e){
-    this.setState({Email: e.target.value});
+    this.setState({Email: e.target.value,
+      ErrorMessage: this.state.ErrorMessage ? {...this.state.ErrorMessage, email:''}: null});
   }
 
   handleCountryChange(e) {
-    this.setState({Country: e.target.value});
+    this.setState({Country: e.target.value,
+      ErrorMessage: this.state.ErrorMessage ? {...this.state.ErrorMessage, country:''}: null});
   }
 
   handleBusinessNameChange(e) {
-    this.setState({BusinessName: e.target.value});
+    this.setState({BusinessName: e.target.value,
+      ErrorMessage: this.state.ErrorMessage ? {...this.state.ErrorMessage, businessName:''}: null});
   }
 
   handlePANChange(e) {
-    this.setState({PAN: e.target.value});
+    this.setState({PAN: e.target.value,
+      ErrorMessage: this.state.ErrorMessage ? {...this.state.ErrorMessage, PAN:''}: null});
   }
 
   handleInvoiceAmtChange(e) {
-    this.setState({InvoiceAmt: e.target.value});
+    this.setState({InvoiceAmt: ''});
   }
 
   handleInvoiceDescChange(e) {
-    this.setState({InvoiceDesc: e.target.value});
+    this.setState({InvoiceDesc: ''});
   }
 
   handleStateInUSAChange(e) {
-    this.setState({StateInUSA: e.target.value});
+    this.setState({StateInUSA: e.target.value,
+      ErrorMessage: this.state.ErrorMessage ? {...this.state.ErrorMessage, state:''}: null});
   }
 
   handleZipCodeChange(e) {
-    this.setState({ZipCode: e.target.value});
+    this.setState({ZipCode: e.target.value,
+      ErrorMessage: this.state.ErrorMessage ? {...this.state.ErrorMessage, zipcode:''}: null});
   }
 
   setIsLoggedIn(value){
@@ -101,6 +109,21 @@ class MerchantForm extends Component {
             }
         ]
     }
+    var baseErrorMessage = {
+        name: '',
+        businessName: '',
+        country:'',
+        state: '',
+        zipcode: '',
+        PAN:'',
+        email:'',
+        items: [
+            {
+                desc: '',
+                amount: ''
+            }
+        ]
+    }
 
     fetch(url, {
       method:"POST",
@@ -113,7 +136,11 @@ class MerchantForm extends Component {
           result.json().then(data => {
             console.log(data)
             console.log(data.result.invoiceCode)
-            that.setState({Alias: data.result.invoiceCode})
+            let errorMessage = null
+            if (data.status == 'fail') {
+              errorMessage = {...baseErrorMessage, ...data.result.errorMessage}
+            }
+            that.setState({ErrorMessage: errorMessage, Alias: data.result.invoiceCode})
           })
       })
     
@@ -135,33 +162,67 @@ class MerchantForm extends Component {
         )
     }
     
-    
+    // Set the error field class names
+    const getFormClass = (errMsg, errMsgField) => {
+      return errMsg ? (errMsgField != '' ? 'form-invalid-border' : '') : ''
+    }
+    const formNameClass = getFormClass(this.state.ErrorMessage, this.state.ErrorMessage ? this.state.ErrorMessage.name : null)
+    const formEmailClass = getFormClass(this.state.ErrorMessage, this.state.ErrorMessage ? this.state.ErrorMessage.email : null)
+    const formBusinessNameClass = getFormClass(this.state.ErrorMessage, this.state.ErrorMessage ? this.state.ErrorMessage.businessName : null)
+    const formCountryClass = getFormClass(this.state.ErrorMessage, this.state.ErrorMessage ? this.state.ErrorMessage.country : null)
+    const formStateClass = getFormClass(this.state.ErrorMessage, this.state.ErrorMessage ? this.state.ErrorMessage.state : null)
+    const formZipcodeClass = getFormClass(this.state.ErrorMessage, this.state.ErrorMessage ? this.state.ErrorMessage.zipcode : null)
+    const formPANClass = getFormClass(this.state.ErrorMessage, this.state.ErrorMessage ? this.state.ErrorMessage.PAN : null)
+
     return (
         <div className="MerchantForm">
         <h2 class="VisaBlue">Merchant Information Form</h2>
           <Form onSubmit={that.handleSubmit}>
           <div className="theRow">
-            <Form.Control placeholder="Merchant name" id="rightMarg" onChange={that.handleNameChange}/>         
-            <Form.Control type="email" placeholder="Enter email" id="leftMarg" onChange={that.handleEmailChange}/>
+            <div className="form-field" id="rightMarg">
+            <Form.Control className={formNameClass} placeholder="Merchant name" onChange={that.handleNameChange}/>         
+            <label class="text-danger form-invalid-feedback">{this.state.ErrorMessage ? this.state.ErrorMessage.name[0] : ''}</label>
+            </div>
+            <div className="form-field" id="leftMarg">
+              <Form.Control className={formEmailClass} type="email" placeholder="Enter email" onChange={that.handleEmailChange}/>
+              <label class="text-danger form-invalid-feedback">{this.state.ErrorMessage ? this.state.ErrorMessage.email[0] : ''}</label>
+            </div>
           </div>
           <div className="theRow"> 
-            <Form.Control placeholder="Business Name" id="rightMarg" onChange={that.handleBusinessNameChange} />
-            <Form.Control as="select" defaultValue="Choose..." id="leftMarg" onChange={that.handleCountryChange}>
-              <option>Choose...</option>
-              <option>United States</option>
-              <option>United Kingdom</option>
-              <option>Canada</option>
-              <option>Mexico</option>
-              <option>China</option>
-            </Form.Control>
+            <div className="form-field" id="rightMarg">
+              <Form.Control className={formBusinessNameClass} placeholder="Business Name" onChange={that.handleBusinessNameChange} />
+              <label class="text-danger form-invalid-feedback">{this.state.ErrorMessage ? this.state.ErrorMessage.businessName[0] : ''}</label>
+            </div>
+            <div className="form-field" id="leftMarg">
+              <Form.Control className={formCountryClass} as="select" defaultValue="Choose..." onChange={that.handleCountryChange}>
+                <option>Choose...</option>
+                <option>United States</option>
+                <option>United Kingdom</option>
+                <option>Canada</option>
+                <option>Mexico</option>
+                <option>China</option>
+              </Form.Control>
+              <label class="text-danger form-invalid-feedback">{this.state.ErrorMessage ? this.state.ErrorMessage.country[0] : ''}</label>
+            </div>
           </div>
           <div className="theRow">
-            <Form.Control placeholder="State" id="rightMarg" onChange={that.handleStateInUSAChange} />
-            <Form.Control placeholder="Zip Code" id="leftMarg" onChange={that.handleZipCodeChange}/>
+            <div className="form-field" id="rightMarg">
+              <Form.Control className={formStateClass} placeholder="State" onChange={that.handleStateInUSAChange} />
+              <label class="text-danger form-invalid-feedback">{this.state.ErrorMessage ? this.state.ErrorMessage.state[0] : ''}</label>
+            </div>
+            <div className="form-field" id="leftMarg">
+              <Form.Control className={formZipcodeClass} placeholder="Zip Code" onChange={that.handleZipCodeChange}/>
+              <label class="text-danger form-invalid-feedback">{this.state.ErrorMessage ? this.state.ErrorMessage.zipcode[0] : ''}</label>
+            </div>
           </div>
           <div className="theRow">
-            <Form.Control type="password" placeholder="Payment Account Number" id="rightMarg" onChange={that.handlePANChange} />
-            <Form.Control placeholder="Invoice amount" id="leftMarg" onChange={that.handleInvoiceAmtChange}/>
+            <div className="form-field" id="rightMarg">
+              <Form.Control className={formPANClass} type="password" placeholder="Payment Account Number" onChange={that.handlePANChange} />
+              <label class="text-danger form-invalid-feedback">{this.state.ErrorMessage ? this.state.ErrorMessage.PAN[0] : ''}</label>
+            </div>
+            <div className="form-field" id="leftMarg">
+              <Form.Control placeholder="Invoice amount" id="leftMarg" onChange={that.handleInvoiceAmtChange}/>
+            </div>
           </div>
           <div className="theRow">
             <textarea class="form-control" placeholder="Invoice description" onChange={that.handleInvoiceDescChange} rows="3"></textarea>
