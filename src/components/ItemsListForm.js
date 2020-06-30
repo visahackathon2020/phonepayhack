@@ -74,7 +74,7 @@ class ItemsListForm extends Component {
                 </div>
                 <div className="form-field" id="leftMargItems">
                   <Form.Control className={getFormClass(item,'amount')} placeholder="Item Amount" onChange={this.handleAmtChange(item)} value={this.props.Items[item].amount}/>         
-                  <label class="text-danger form-invalid-feedback">{getErrorMessage(item,'amount')[0]}</label>
+                  <label class="text-danger form-invalid-feedback">{getErrorMessage(item,'amount')[0] }</label>
                 </div>
                 {(items.length > 1) ?
                   <div className="buttonsRow">
@@ -82,14 +82,15 @@ class ItemsListForm extends Component {
                         Remove
                       </Button>
                   </div>
-                  : <div></div>}
+                  : <div className="buttonsRow"></div>}
               </div>
             </div>
           ))}
-          
+              
               <Button variant="primary" id="buttonBlueNoLeftMarg" onClick={this.handleAddNewItem}>
                 +
               </Button>
+              
           
         </div>  
         
