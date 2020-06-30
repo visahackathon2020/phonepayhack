@@ -59,18 +59,30 @@ class MerchantInvoice extends Component {
   render() {
     // Do this for the form submission https://stackoverflow.com/questions/23427384/get-form-data-in-reactjs
     
+    // Set the error field class names
+    const getFormClass = (errMsg, errMsgField) => {
+      return errMsg ? (errMsgField != '' ? 'form-invalid-border' : '') : ''
+    }
+    const formBusinessNameClass = getFormClass(this.props.ErrorMessage, this.props.ErrorMessage ? this.props.ErrorMessage.businessName : null)
+    const formEmailClass = getFormClass(this.props.ErrorMessage, this.props.ErrorMessage ? this.props.ErrorMessage.email : null)
     
     return (
         <div className="MerchantInvoice">
           <Form onSubmit={this.handleSubmit}>
             <div id="invoiceRow">
-                <Form.Control placeholder="Business name" id="center" onChange={this.handleBusinessNameChange}/>         
+                <div className="form-field" id="center">
+                  <Form.Control className={formBusinessNameClass} placeholder="Business name" onChange={this.handleBusinessNameChange}/>         
+                  <label class="text-danger form-invalid-feedback">{this.props.ErrorMessage ? this.props.ErrorMessage.businessName[0] : ''}</label>
+                </div>
             </div>
             <div id="invoiceRow">
-                <Form.Control placeholder="Business email" id="center" onChange={this.handleBusinessEmailChange}/>         
+                <div className="form-field" id="center">
+                  <Form.Control className={formEmailClass} placeholder="Business email" onChange={this.handleBusinessEmailChange}/>         
+                  <label class="text-danger form-invalid-feedback">{this.props.ErrorMessage ? this.props.ErrorMessage.email[0] : ''}</label>
+                </div>
             </div>
             <div id="invoiceRow">
-                <Form.Control placeholder="Invoice amount" id="center" onChange={this.handleInvoiceAmtChange}/>         
+                <Form.Control placeholder="Invoice amount" onChange={this.handleInvoiceAmtChange}/>         
             </div>
             <div id="invoiceRow">
                 <textarea class="form-control" placeholder="Invoice description" onChange={this.handleInvoiceDescChange} rows="5"></textarea>

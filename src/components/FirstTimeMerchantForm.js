@@ -63,29 +63,54 @@ class FirstTimeMerchantForm extends Component {
     const that = this;
     // Do this for the form submission https://stackoverflow.com/questions/23427384/get-form-data-in-reactjs
     
+    // Set the error field class names
+    const getFormClass = (errMsg, errMsgField) => {
+      return errMsg ? (errMsgField != '' ? 'form-invalid-border' : '') : ''
+    }
+    const formNameClass = getFormClass(this.props.ErrorMessage, this.props.ErrorMessage ? this.props.ErrorMessage.name : null)
+    const formCountryClass = getFormClass(this.props.ErrorMessage, this.props.ErrorMessage ? this.props.ErrorMessage.country : null)
+    const formStateClass = getFormClass(this.props.ErrorMessage, this.props.ErrorMessage ? this.props.ErrorMessage.state: null)
+    const formZipcodeClass = getFormClass(this.props.ErrorMessage, this.props.ErrorMessage ? this.props.ErrorMessage.zipcode : null)
+    const formPANClass = getFormClass(this.props.ErrorMessage, this.props.ErrorMessage ? this.props.ErrorMessage.PAN : null)
+
     
     return (
         <div className="FirstTimeMerchantForm">
         <h2 class="VisaBlue">Create Merchant Account</h2>
           <Form onSubmit={that.handleSubmit}>
           <div className="theRow">
-            <Form.Control placeholder="Merchant name" id="rightMarg" onChange={that.handleNameChange}/>     
+            <div className="form-field" id="rightMarg">
+              <Form.Control className={formNameClass} placeholder="Merchant name" onChange={that.handleNameChange}/>     
+              <label class="text-danger form-invalid-feedback">{this.props.ErrorMessage ? this.props.ErrorMessage.name[0] : ''}</label>
+            </div>
             <Form.Control placeholder="Cardholder Name" id="leftMarg" />     
           </div>
           <div className="theRow"> 
-            <Form.Control as="select" defaultValue="Choose..." id="rightMarg" onChange={that.handleCountryChange}>
-              <option>Choose...</option>
-              <option>United States</option>
-              <option>United Kingdom</option>
-              <option>Canada</option>
-              <option>Mexico</option>
-              <option>China</option>
-            </Form.Control>
-            <Form.Control type="password" placeholder="Payment Account Number" id="leftMarg" onChange={that.handlePANChange} />
+            <div className="form-field" id="rightMarg">
+              <Form.Control className={formCountryClass} as="select" defaultValue="Choose..." onChange={that.handleCountryChange}>
+                <option>Choose...</option>
+                <option>United States</option>
+                <option>United Kingdom</option>
+                <option>Canada</option>
+                <option>Mexico</option>
+                <option>China</option>
+              </Form.Control>
+              <label class="text-danger form-invalid-feedback">{this.props.ErrorMessage ? this.props.ErrorMessage.country[0] : ''}</label>
+            </div>
+            <div className="form-field" id="leftMarg">
+              <Form.Control className={formPANClass} type="password" placeholder="Payment Account Number" onChange={that.handlePANChange} />
+              <label class="text-danger form-invalid-feedback">{this.props.ErrorMessage ? this.props.ErrorMessage.PAN[0] : ''}</label>
+            </div>
           </div>
           <div className="theRow">
-            <Form.Control placeholder="State" id="rightMarg" onChange={that.handleStateInUSAChange} />
-            <Form.Control placeholder="Zip Code" id="leftMarg" onChange={that.handleZipCodeChange}/>
+            <div className="form-field" id="rightMarg">
+              <Form.Control className={formStateClass} placeholder="State" onChange={that.handleStateInUSAChange} />
+              <label class="text-danger form-invalid-feedback">{this.props.ErrorMessage ? this.props.ErrorMessage.state[0] : ''}</label>
+            </div>
+            <div className="form-field" id="leftMarg">
+              <Form.Control className={formZipcodeClass} placeholder="Zip Code" onChange={that.handleZipCodeChange}/>
+              <label class="text-danger form-invalid-feedback">{this.props.ErrorMessage ? this.props.ErrorMessage.zipcode[0] : ''}</label>
+            </div>
           </div>
           <div className="buttonsRow">
           <Button variant="primary" type="submit" id="buttonBlue">

@@ -14,6 +14,7 @@ class MerchantLogin extends Component {
   constructor(props) {
     super(props)
     this.state={
+        EmailMessage: null,
         SignedIn: false,
         IdToken: null,
         FormInfoExists: false,
@@ -78,6 +79,15 @@ class MerchantLogin extends Component {
   submitMerchantPayment(myPostBody){
     var url = 'https://kylepence.dev:5000/merchants'
 
+    var baseErrorMessage = {
+        name: '',
+        businessName: '',
+        country:'',
+        state: '',
+        zipcode: '',
+        PAN:'',
+    }
+
     fetch(url, {
       method:"POST",
       body: JSON.stringify(myPostBody),
@@ -90,6 +100,11 @@ class MerchantLogin extends Component {
           // do something with the result
           result.json().then(data => {
             console.log(data)
+            let errorMessage = null
+            if (data.status == 'fail') {
+              errorMessage = {...baseErrorMessage, ...data.result.errorMessage}
+            }
+            this.setState({ErrorMessage: errorMessage})
             if (data.status=="success"){
               this.setState({FormInfoExists: true})
             }
@@ -100,6 +115,11 @@ class MerchantLogin extends Component {
 
   submitMerchantInvoice(myPostBody){
     var url = 'https://kylepence.dev:5000/invoices'
+
+    var baseErrorMessage = {
+        businessName: '',
+        email: ''
+    }
 
     fetch(url, {
       method:"POST",
@@ -113,7 +133,12 @@ class MerchantLogin extends Component {
         result.json().then(data => {
           console.log(data)
           console.log(data.result.invoiceCode)
-          this.setState({Alias: data.result.invoiceCode})
+          let errorMessage = null
+          if (data.status == 'fail') {
+            errorMessage = {...baseErrorMessage, ...data.result.errorMessage}
+          }
+          this.setState({Alias: data.result.invoiceCode,
+            ErrorMessage: errorMessage})
         })
     })
     
@@ -178,7 +203,7 @@ class MerchantLogin extends Component {
           return (
             <div className="MerchantLogin">
             <h2 class="VisaBlue">First Time Merchant Form</h2>
-            <FirstTimeMerchantForm action={this.submitMerchantPayment}></FirstTimeMerchantForm>
+            <FirstTimeMerchantForm action={this.submitMerchantPayment} ErrorMessage={this.state.ErrorMessage}></FirstTimeMerchantForm>
           </div> 
           )
         }
@@ -187,7 +212,7 @@ class MerchantLogin extends Component {
         return (
           <div className="MerchantLogin">
             <h2 class="VisaBlue">Invoice Creation Form</h2>
-                <MerchantInvoice action={this.submitMerchantInvoice} IdToken={this.state.IdToken} Alias={this.state.Alias}></MerchantInvoice>
+                <MerchantInvoice action={this.submitMerchantInvoice} IdToken={this.state.IdToken} Alias={this.state.Alias} ErrorMessage={this.state.ErrorMessage}></MerchantInvoice>
                 <br></br>
                 <br></br>
               <Form onSubmit={this.handleLogout}>

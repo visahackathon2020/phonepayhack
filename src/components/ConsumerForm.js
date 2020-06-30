@@ -8,6 +8,7 @@ class ConsumerForm extends Component {
   constructor(props) {
     super(props)
     this.state={
+        ErrorMessage: null,
         DoesInvoiceExist: false,
         InvoiceCode: "",
         OrderPrice: "Loading...",
@@ -35,11 +36,13 @@ class ConsumerForm extends Component {
   }
 
   handleEmailChange(e){
-    this.setState({Email: e.target.value});
+    this.setState({Email: e.target.value,
+      ErrorMessage: this.state.ErrorMessage ? {...this.state.ErrorMessage, email:''}: null});
   }
 
   handleCreditCardChange(e){
-    this.setState({CreditCard: e.target.value});
+    this.setState({CreditCard: e.target.value,
+      ErrorMessage: this.state.ErrorMessage ? {...this.state.ErrorMessage, senderPAN:''}: null});
   }
 
   handleFirstNameChange(e){
@@ -82,6 +85,11 @@ class ConsumerForm extends Component {
           result.json().then(data => {
             console.log(data)
             console.log(data.result)
+            let errorMessage = null
+            if (data.status == 'fail') {
+              errorMessage = {email:'',senderPAN:'', ...data.result.errorMessage}
+            }
+            this.setState({ErrorMessage: errorMessage})
           })
       })
 
@@ -105,6 +113,7 @@ class ConsumerForm extends Component {
       this.setState({MerchantName: data.result.invoiceObj.businessName + ' ',
       OrderPrice: data.result.invoiceObj.items[0].amount,
       InvoiceDescription:  data.result.invoiceObj.items[0].desc})
+
     }).catch(error =>{
       this.setState({DoesInvoiceExist: false});
       this.setState({InvoiceCode: ""})
@@ -128,6 +137,13 @@ class ConsumerForm extends Component {
       )
     }
 
+    // Set the error field class names
+    const getFormClass = (errMsg, errMsgField) => {
+      return errMsg ? (errMsgField != '' ? 'form-invalid-border' : '') : ''
+    }
+    const formEmailClass = getFormClass(this.state.ErrorMessage, this.state.ErrorMessage ? this.state.ErrorMessage.email : null)
+    const formPANClass = getFormClass(this.state.ErrorMessage, this.state.ErrorMessage ? this.state.ErrorMessage.senderPAN : null)
+
 
 
     return (
@@ -136,8 +152,9 @@ class ConsumerForm extends Component {
           <h1 class="smallVisaBlue">Merchant Name: {this.state.MerchantName}</h1>
           <h1 class="smallVisaBlue">Invoice Cost: {this.state.OrderPrice}</h1>
           <h1 class="smallVisaBlue">Invoice Description: {this.state.InvoiceDescription}</h1>
-          <br></br>
+          <h1>Test: {}</h1>
 
+          <br></br>
           <Form onSubmit={that.handleSubmit}>
           <div className="consRow">
               <Form.Group as={Col} md="4">
@@ -147,18 +164,30 @@ class ConsumerForm extends Component {
                 <Form.Control placeholder="Last name" onChange={that.handleLastNameChange}/>
               </Form.Group>
               <Form.Group as={Col} md="4">
-                <Form.Control type="email" placeholder="Enter email" onChange={that.handleEmailChange}/>
+                <div className="form-field">
+                  <Form.Control className={formEmailClass} type="email" placeholder="Enter email" onChange={that.handleEmailChange}/>
+                  <label class="text-danger form-invalid-feedback">{this.state.ErrorMessage ? this.state.ErrorMessage.email[0] : ''}</label>
+                </div>
               </Form.Group>
           </div>
           <div className="consRow">
               <Form.Group as={Col} md="6">
-                <Form.Control type="password" placeholder="Card number" onChange={that.handleCreditCardChange} />
+                <div className="form-field">
+                  <Form.Control className={formPANClass} type="password" placeholder="Card number" onChange={that.handleCreditCardChange} />
+                  <label class="text-danger form-invalid-feedback">{this.state.ErrorMessage ? this.state.ErrorMessage.senderPAN[0] : ''}</label>
+                </div>
               </Form.Group>
               <Form.Group as={Col} md="3">
                 <Form.Control placeholder="MM/YY" onChange={that.handleExpirationChange}/>
+                <div className="invalid-feedback">
+                  Invalid Expiration Date.
+                </div>
               </Form.Group>
               <Form.Group as={Col} md="3">
                 <Form.Control placeholder="CVV" onChange={that.handleSecurityCodeChange}/>
+                <div className="invalid-feedback">
+                  Invalid CVV.
+                </div>
               </Form.Group>
           </div>
           <div className="consRow">
