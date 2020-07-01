@@ -5,6 +5,7 @@ import firebase from "firebase/app";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ItemsListForm from "./ItemsListForm";
 import LoadingPage from "./LoadingPage";
+import successCheck from "../success.jpg"
 
 class MerchantInvoice extends Component {
   constructor(props) {
@@ -113,6 +114,16 @@ class MerchantInvoice extends Component {
       return !err || !err[attr] || err[attr] === "" ? "" : err[attr][0];
     };
 
+    if (this.state.alias != "") {
+      return (
+        <div className="fullPageText">
+          <div>Invoice Successfully Created</div>
+          <img src={successCheck}/>
+          <div>Payment Code: {this.state.alias}</div>
+        </div>
+      )
+    }
+
     return (
       <div className="MerchantInvoice">
         <h2 className="VisaBlue" id="header">
@@ -175,7 +186,6 @@ class MerchantInvoice extends Component {
           </div>
           <br></br>
           <br></br>
-          <h1 className="smallVisaBlue">Alias: {this.state.alias}</h1>
         </Form>
       </div>
     );
