@@ -61,9 +61,14 @@ function App() {
             Merchant
           </Link>
           {isLoaded(auth) && !isEmpty(auth) ? (
-            <Link className="navText" to="/logout">
-              Logout
-            </Link>
+            <>
+              <Link className="navText" to="/merchantform">
+                Update Info
+              </Link>
+              <Link className="navText" to="/logout">
+                Logout
+              </Link>
+            </>
           ) : (
             <Link className="navText" to="/login">
               Login
