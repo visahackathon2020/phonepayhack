@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Form, Row, Col, Button } from "react-bootstrap";
+import Cleave from "cleave.js/react";
+import { Form, Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import firebase from "firebase/app";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -27,7 +28,6 @@ class MerchantInfoForm extends Component {
       .currentUser.getIdToken(/* forceRefresh */ true)
       .then((idToken) => {
         // Send token to your backend via HTTPS
-        // ...
         that.setState({ idToken: idToken });
       })
       .catch(function (error) {
@@ -44,14 +44,12 @@ class MerchantInfoForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const that = this;
-
     const myPostBody = {
       name: this.state.name,
       country: "USA",
       state: this.state.stateInUSA,
       zipcode: this.state.zipCode,
-      PAN: this.state.PAN,
+      PAN: this.state.PAN.split(" ").join(""),
     };
 
     const url = "https://kylepence.dev:5000/merchants";
@@ -128,10 +126,11 @@ class MerchantInfoForm extends Component {
               </label>
             </div>
             <div className="form-field" id="leftMarg">
-              <Form.Control
-                className={getFormClass("PAN")}
+              <Cleave
+                className={`${getFormClass("PAN")} form-control`}
                 name="PAN"
                 placeholder="Payment Account Number"
+                options={{ creditCard: true }}
                 onChange={that.handleChanges}
               />
               <label className="text-danger form-invalid-feedback">

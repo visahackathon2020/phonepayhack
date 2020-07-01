@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Cleave from "cleave.js/react";
 import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoadingPage from "./LoadingPage";
@@ -184,26 +185,28 @@ class MerchantInvoiceFull extends Component {
           </div>
           <div className="theRow">
             <div className="form-field" id="rightMarg">
-              <Form.Control
-                className={getFormClass("PAN")}
+              <Cleave
+                className={`${getFormClass("PAN")} form-control`}
                 name="PAN"
-                type="password"
                 placeholder="Payment Account Number"
+                options={{ creditCard: true }}
                 onChange={that.handleChanges}
               />
               <label className="text-danger form-invalid-feedback">
                 {getErrorMessage("PAN")}
               </label>
             </div>
+            <div id="leftMarg">&nbsp;</div>
           </div>
           <div className="theRow">
-            <textarea
-              className="form-control"
-              className={getFormClass("additionalMessage")}
-              placeholder="Additional Message"
-              onChange={that.handleChanges}
-              rows="3"
-            ></textarea>
+            <div style={{ padding: "20px 0px" }}>
+              <textarea
+                className={`${getFormClass("additionalMessage")} form-control`}
+                placeholder="Additional Message"
+                onChange={that.handleChanges}
+                rows="3"
+              />
+            </div>
           </div>
           <div className="theRow">
             <ItemsListForm
@@ -214,13 +217,6 @@ class MerchantInvoiceFull extends Component {
           </div>
 
           <div className="buttonsRow">
-            <Button
-              variant="secondary"
-              onClick={() => this.setWantsToLogIn(true)}
-              id="buttonBlue"
-            >
-              Log-In Instead
-            </Button>
             <Button variant="primary" type="submit" id="buttonBlue">
               <span id="submitText">Submit</span>
               <span id="goldenArrow">➤</span>
