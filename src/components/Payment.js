@@ -20,6 +20,7 @@ class Payment extends Component {
       firstName: "",
       lastName: "",
       emailReceipt: false,
+      items: null,
     };
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleCreditCardChange = this.handleCreditCardChange.bind(this);
@@ -50,7 +51,9 @@ class Payment extends Component {
               (acc, e) => e.amount + acc,
               0
             ),
-            invoiceDescription: data.result.invoiceObj.items[0].desc,
+            invoiceDescription: data.result.invoiceObj.additionalMessage,
+            invoiceCode: orderStr,
+            items: data.result.invoiceObj.items,
           });
         })
         .catch((error) => {
@@ -62,6 +65,7 @@ class Payment extends Component {
         orderPrice: state.orderPrice,
         invoiceDescription: state.invoiceDescription,
         invoiceCode: state.invoiceCode,
+        items: state.items,
       });
     }
   }

@@ -42,8 +42,9 @@ class Home extends Component {
               (acc, e) => e.amount + acc,
               0
             ),
-            invoiceDescription: data.result.invoiceObj.items[0].desc,
+            invoiceDescription: data.result.invoiceObj.additionalMessage,
             invoiceCode: orderStr,
+            items: data.result.invoiceObj.items,
           });
         } else {
           this.setState({invalidCode: true});
