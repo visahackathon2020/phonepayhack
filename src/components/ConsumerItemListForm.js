@@ -8,29 +8,12 @@ class ConsumerItemListForm extends Component {
     super(props);
     this.state = {
       html : "",
-      sum : null
     };
   }
 
-  getSum() {
-    var total = 0;
-    console.log(this.props.items);
-    if(this.props.items !== null) {
-      console.log("here!");
-      this.props.items.forEach((item, i) => {
-        total += item.amount;
-        console.log(total);
-      });
-    }
-    this.setState({sum : total});
-    console.log(total);
-  }
-
   render() {
-    if (this.state.sum === null) {
-      this.getSum();
-    }
     const itemList = this.props.items || [];
+    console.log("ConsumerItemListForm", this.props.items)
     return (
       <Table bordered hover>
         <thead>
@@ -48,7 +31,7 @@ class ConsumerItemListForm extends Component {
         )}
           <tr>
             <td>Total</td>
-            <td>{this.state.sum}</td>
+            <td>{this.props.items.reduce((item) => { item.amount })}</td>
           </tr>
         </tbody>
       </Table>
