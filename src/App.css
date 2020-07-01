@@ -47,7 +47,7 @@
 .formField {
   margin-left: 10%;
   margin-right: 10%;
-  
+
 }
 
 .form-field {
@@ -74,7 +74,7 @@
 .buttonsRow {
   display: inline;
   flex-direction: horizontal;
-  
+
 }
 
 
@@ -91,7 +91,7 @@
   width: 50% !important;
   font-family: "Open Sans", sans-serif,Tahoma;
   font-weight: 300;
-  
+
 }
 
 .VisaBlue {
@@ -113,14 +113,14 @@
   font-size: 1.5em;
   display: block;
   text-align: left;
-  
+
   margin-left: 10%;
   margin-right: 10%;
 }
 
 .navBlue {
   background-color: #1a1f71;
-  
+
 }
 
 .navText{
@@ -134,7 +134,7 @@
   max-width: flex;
   margin-bottom: 3px;
   margin-top: 3px;
-  
+
 }
 
 .form-control:focus {
@@ -150,6 +150,45 @@ input.form-control:hover {
 .form-control.form-invalid-border {
   border-color: #dc3545;
   box-shadow: 0 0 7px #dc3545;
+}
+
+.fullPageText {
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  color: #1a1f71;
+  font-family: "Open Sans", sans-serif, Tahoma;
+  font-weight: 300;
+  font-size: 300%;
+  display: block;
+}
+
+.successCheck {
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
+
+.invoiceContainer {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.invoiceContainerRowHeader {
+  text-decoration: underline;
+}
+
+.invoiceContainerRow {
+
+}
+
+.icrLeftCol {
+
+}
+
+.icrRightCol {
+  float: right;
 }
 
 #indicatorStripe {
@@ -204,8 +243,8 @@ input.form-control:hover {
 
 #specialCode {
   display: block;
-  text-align: center !important; 
-  width: 33%; 
+  text-align: center !important;
+  width: 33%;
   margin-left: 33%;
   margin-right: 33%;
   margin-bottom: 0px;
@@ -219,8 +258,8 @@ input.form-control:hover {
 
 #invoiceRow {
   display: block;
-  text-align: center !important; 
-  width: 33%; 
+  text-align: center !important;
+  width: 33%;
   margin-left: 33%;
   margin-right: 33%;
   margin-bottom: 15px;
