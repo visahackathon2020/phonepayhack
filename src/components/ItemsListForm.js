@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Row, Col, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class ItemsListForm extends Component {
@@ -83,8 +83,12 @@ class ItemsListForm extends Component {
                   {geterrorMessage(item, "desc")[0]}
                 </label>
               </div>
-              <div className="theRow" />
-              <div className="form-field" id="leftMarg">
+              <div style={{ height: "2px" }} />
+              <div
+                className="form-field"
+                id="leftMarg"
+                style={{ margin: "0px" }}
+              >
                 <Form.Control
                   className={getFormClass(item, "amount")}
                   placeholder="Item Amount"

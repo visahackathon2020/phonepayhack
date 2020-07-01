@@ -4,6 +4,7 @@ import { Form, Button } from "react-bootstrap";
 import firebase from "firebase/app";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ItemsListForm from "./ItemsListForm";
+import LoadingPage from "./LoadingPage";
 
 class MerchantInvoice extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class MerchantInvoice extends Component {
       alias: "",
       errorMessage: "",
       items: [{ desc: "", amount: "" }],
+      loading: true,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,10 +31,7 @@ class MerchantInvoice extends Component {
       .auth()
       .currentUser.getIdToken(/* forceRefresh */ true)
       .then((idToken) => {
-        // Send token to your backend via HTTPS
-        // ...
         that.setState({ idToken: idToken });
-
         // check if merchant doc exists
         const url = "https://kylepence.dev:5000/merchants";
         fetch(url, {
@@ -48,11 +47,13 @@ class MerchantInvoice extends Component {
               this.props.history.push("/merchantform");
             }
           });
+          that.setState({ loading: false });
         });
       })
       .catch(function (error) {
         // Handle error
         console.error(error);
+        that.setState({ loading: false });
       });
   }
 
@@ -76,12 +77,6 @@ class MerchantInvoice extends Component {
     };
     const url = "https://kylepence.dev:5000/invoices";
 
-    const baseErrorMessage = {
-      businessName: "",
-      email: "",
-      items: {},
-    };
-
     const that = this;
 
     fetch(url, {
@@ -94,19 +89,18 @@ class MerchantInvoice extends Component {
       result.json().then((data) => {
         console.log(data);
         console.log(data.result.invoiceCode);
-        let errorMessage = null;
-        if (data.status === "fail") {
-          errorMessage = { ...baseErrorMessage, ...data.result.errorMessage };
-        }
         that.setState({
           alias: data.result.invoiceCode,
-          errorMessage: errorMessage,
+          errorMessage: data.result.errorMessage,
         });
       });
     });
   }
 
   render() {
+    if (this.state.loading) {
+      return <LoadingPage />;
+    }
     // Set the error field class names
     const getFormClass = (attr) => {
       let err = this.state.errorMessage;

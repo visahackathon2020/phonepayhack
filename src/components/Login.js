@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useFirebase, isLoaded, isEmpty } from "react-redux-firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { useHistory } from "react-router";
-import { Redirect } from "react-router-dom";
 
 import * as firebase from "firebase/app";
 import "firebase/auth";
@@ -14,12 +13,11 @@ function Login() {
   const auth = useSelector((state) => state.firebase.auth);
 
   useEffect(() => {
-    return () => {
-      if (isLoaded(auth) && !isEmpty(auth)) {
-        return <Redirect to="/merchantform"></Redirect>;
-      }
-    };
-  }, [auth]);
+    if (isLoaded(auth) && !isEmpty(auth)) {
+      history.push("/merchantform");
+    }
+    return () => {};
+  }, [auth, history]);
 
   return (
     <div>
@@ -41,7 +39,7 @@ function Login() {
         }}
         firebaseAuth={firebase.auth()}
       />
-      <div>
+      <div id="header">
         <h2>Auth</h2>
         {!isLoaded(auth) ? (
           <span>Loading...</span>

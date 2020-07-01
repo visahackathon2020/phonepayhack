@@ -30,7 +30,7 @@ class Home extends Component {
     const that = this;
     // Do this for the form submission https://stackoverflow.com/questions/23427384/get-form-data-in-reactjs
     return (
-      <div className="GetInvoiceForm">
+      <div className="container">
         <h2 className="VisaBlue" id="header">
           Enter Order Code
         </h2>
@@ -40,6 +40,7 @@ class Home extends Component {
               placeholder="Special Code"
               id="specialCodeField"
               onChange={that.handleInvoiceCodeChange}
+              required
             />
           </div>
           <Button variant="primary" type="submit" id="buttonBlue">

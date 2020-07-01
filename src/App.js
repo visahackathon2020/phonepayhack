@@ -1,17 +1,17 @@
 import React from "react";
-import { Switch, Route, Link, Redirect, useHistory } from "react-router-dom";
+import { Switch, Route, Link, Redirect } from "react-router-dom";
 import "./App.css";
 import { Nav, Navbar } from "react-bootstrap";
 import Home from "./components/Home";
 import MerchantInvoiceFull from "./components/MerchantInvoiceFull.js";
 import MerchantInfoForm from "./components/MerchantInfoForm";
 import Login from "./components/Login";
+import Logout from "./components/Logout";
 import Payment from "./components/Payment";
-import { isLoaded, isEmpty, useFirebase } from "react-redux-firebase";
+import { isLoaded, isEmpty } from "react-redux-firebase";
 import { useSelector } from "react-redux";
 import MerchantInvoice from "./components/MerchantInvoice";
 import LoadingPage from "./components/LoadingPage";
-import { Button } from "react-bootstrap";
 
 function AuthIsLoaded({ children }) {
   const auth = useSelector((state) => state.firebase.auth);
@@ -41,13 +41,8 @@ function PrivateRoute({ children, ...rest }) {
 }
 
 function App() {
-  const firebase = useFirebase();
   const auth = useSelector((state) => state.firebase.auth);
-  const history = useHistory();
-  const logout = () => {
-    firebase.logout();
-    history.push("/login");
-  };
+
   return (
     <div>
       <Navbar className="navBlue">
@@ -65,14 +60,18 @@ function App() {
           <Link className="navText" to="/merchant">
             Merchant
           </Link>
-          <Link className="navText" to="/login">
-            Login
-          </Link>
-          <Button className="navText" onClick={logout}>
-            Logout
-          </Button>
+          {isLoaded(auth) && !isEmpty(auth) ? (
+            <Link className="navText" to="/logout">
+              Logout
+            </Link>
+          ) : (
+            <Link className="navText" to="/login">
+              Login
+            </Link>
+          )}
         </Nav>
       </Navbar>
+      <div id="indicatorStripe"></div>
       <Switch>
         <Route exact path="/">
           <Home />
@@ -96,9 +95,8 @@ function App() {
             )
           }
         />
-        <Route path="/login">
-          <Login></Login>
-        </Route>
+        <Route path="/login" component={Login} />
+        <Route path="/logout" component={Logout} />
         <AuthIsLoaded>
           <PrivateRoute path="/merchantform">
             <MerchantInfoForm />
