@@ -52,8 +52,6 @@ class MerchantInfoForm extends Component {
       PAN: this.state.PAN.split(" ").join(""),
     };
 
-    console.log("PAN", this.state.PAN.split(" ").join(""))
-
     const url = "https://kylepence.dev:5000/merchants";
 
     fetch(url, {
