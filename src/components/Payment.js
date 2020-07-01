@@ -82,7 +82,7 @@ class Payment extends Component {
   handleSubmit(e) {
     var url = "https://kylepence.dev:5000/payment";
     var myPostBody = {
-      senderPAN: this.state.creditCard,
+      senderPAN: this.state.creditCard.split(" ").join(""),
       invoiceId: this.state.invoiceCode,
       email: this.state.email,
     };
