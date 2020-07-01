@@ -64,7 +64,6 @@ class ItemsListForm extends Component {
       return this.props.errorMessage.items[item][field] || "";
     };
     const items = this.props.items || [];
-    console.log(this.props.errorMessage);
 
     return (
       <div className="itemsListForm">
