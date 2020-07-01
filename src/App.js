@@ -11,6 +11,7 @@ import { isLoaded, isEmpty } from "react-redux-firebase";
 import { useSelector } from "react-redux";
 import MerchantInvoice from "./components/MerchantInvoice";
 import LoadingPage from "./components/LoadingPage";
+import "./App.css";
 
 function AuthIsLoaded({ children }) {
   const auth = useSelector((state) => state.firebase.auth);

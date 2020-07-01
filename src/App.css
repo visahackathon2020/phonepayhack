@@ -92,7 +92,7 @@
   width: 40%;
   flex-direction: horizontal;
   margin-right: 1%;
-  font-family: "Open Sans", sans-serif,Tahoma;
+  font-family: "Open Sans", sans-serif, Tahoma;
   font-weight: 300;
 }
 
@@ -114,7 +114,7 @@
   width: 30%;
   flex-direction: horizontal;
   margin-left: 1%;
-  font-family: "Open Sans", sans-serif,Tahoma;
+  font-family: "Open Sans", sans-serif, Tahoma;
   font-weight: 300;
 }
 
@@ -175,10 +175,6 @@ input.form-control:hover {
   box-shadow: 0 0 7px #dc3545;
 }
 
-.form-control {
-  width: 300%;
-}
-
 .fullPageText {
   margin-top: 10%;
   margin-left: auto;
@@ -224,11 +220,10 @@ input.form-control:hover {
 #buttonBlueNoLeftMarg {
   background-color: #1a1f71 !important;
   min-width: 130px !important;
-  font-family: "Open Sans", sans-serif,Tahoma;
+  font-family: "Open Sans", sans-serif, Tahoma;
   font-size: 15px;
   margin-top: 20px;
   margin-left: 0px !important;
-  
 }
 
 #buttonLogout {
@@ -300,7 +295,6 @@ input.form-control:hover {
   min-width: 260px;
   height: 40px;
   margin-bottom: 10px;
-  
 }
 
 #buttonBluePlusMinus {
@@ -308,8 +302,7 @@ input.form-control:hover {
   font-family: "Open Sans", sans-serif, Tahoma;
   font-size: 15px;
   margin-left: 5%;
-  
+
   display: inline;
   align-items: center;
-
 }

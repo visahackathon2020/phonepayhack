@@ -32,8 +32,8 @@ class Payment extends Component {
       match: { params },
     } = this.props;
     const orderStr = params.id;
-    const state = this.props.location.state
-    console.log("state",state, this.props)
+    const state = this.props.location.state;
+    console.log("state", state, this.props);
     console.log(orderStr);
     if (state === undefined) {
       this.setState({ invoiceCode: orderStr });
@@ -143,7 +143,9 @@ class Payment extends Component {
         <h1 className="smallVisaBlue">
           Merchant Name: {this.state.merchantName}
         </h1>
-        <h1 className="smallVisaBlue">Invoice Cost: ${this.state.orderPrice}</h1>
+        <h1 className="smallVisaBlue">
+          Invoice Cost: ${this.state.orderPrice}
+        </h1>
         <h1 className="smallVisaBlue">
           Invoice Description: {this.state.invoiceDescription}
         </h1>
@@ -167,13 +169,13 @@ class Payment extends Component {
             <Form.Group as={Col} md="4">
               <div className="form-field">
                 <Form.Control
-                  className={getFormClass('email')}
+                  className={getFormClass("email")}
                   type="email"
                   placeholder="Enter email"
                   onChange={that.handleEmailChange}
                 />
                 <label className="text-danger form-invalid-feedback">
-                  {getErrorMessage('email')}
+                  {getErrorMessage("email")}
                 </label>
               </div>
             </Form.Group>
@@ -182,13 +184,13 @@ class Payment extends Component {
             <Form.Group as={Col} md="6">
               <div className="form-field">
                 <Cleave
-                  className={getFormClass('senderPAN')}
+                  className={`${getFormClass("senderPAN")} form-control`}
                   placeholder="Card Number"
                   options={{ creditCard: true }}
                   onChange={that.handleCreditCardChange}
                 />
                 <label className="text-danger form-invalid-feedback">
-                  {getErrorMessage('senderPAN')}
+                  {getErrorMessage("senderPAN")}
                 </label>
               </div>
             </Form.Group>
@@ -206,6 +208,7 @@ class Payment extends Component {
                 name="CVV"
                 placeholder="CVV"
                 onChange={that.handleChanges}
+                pattern="\d{3,4}"
               />
               <div className="invalid-feedback">Invalid CVV.</div>
             </Form.Group>
