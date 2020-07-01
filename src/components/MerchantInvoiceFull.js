@@ -196,24 +196,28 @@ class MerchantInvoiceFull extends Component {
                 {getErrorMessage("PAN")}
               </label>
             </div>
-            <div id="leftMarg">&nbsp;</div>
-          </div>
-          <div className="theRow">
-            <div style={{ padding: "20px 0px" }}>
-              <textarea
-                className={`${getFormClass("additionalMessage")} form-control`}
-                placeholder="Additional Message"
-                onChange={that.handleChanges}
-                rows="3"
-              />
+            <div className="form-field" id="leftMarg">
+              <Form.Control  placeholder="Transaction Type (Food, Retail, ...)"/>
             </div>
           </div>
+
+          
+          
           <div className="theRow">
             <ItemsListForm
               action={this.handleItemsChange}
               items={this.state.items}
               errorMessage={this.state.errorMessage}
             />
+          </div>
+
+          <div className="additionalMsg">
+              <textarea
+                className={`${getFormClass("additionalMessage")} form-control`}
+                placeholder="Additional Message"
+                onChange={that.handleChanges}
+                rows="3"
+              />
           </div>
 
           <div className="buttonsRow">
