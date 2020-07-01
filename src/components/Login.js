@@ -21,6 +21,8 @@ function Login() {
 
   return (
     <div>
+      <h1 className="VisaBlue" id="header">Login Here</h1>
+      <br></br>
       <StyledFirebaseAuth
         uiConfig={{
           signInFlow: "popup",
@@ -39,16 +41,6 @@ function Login() {
         }}
         firebaseAuth={firebase.auth()}
       />
-      <div id="header">
-        <h2>Auth</h2>
-        {!isLoaded(auth) ? (
-          <span>Loading...</span>
-        ) : isEmpty(auth) ? (
-          <span>Not Authed</span>
-        ) : (
-          <pre>Auth Success!</pre>
-        )}
-      </div>
     </div>
   );
 }

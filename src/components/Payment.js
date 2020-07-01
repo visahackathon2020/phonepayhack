@@ -3,11 +3,13 @@ import Cleave from "cleave.js/react";
 import { Form, Col, Button, Alert } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import successCheck from "../success.jpg"
 
 class Payment extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      success: false,
       errorMessage: null,
       errorType: null,
       invoiceCode: "",
@@ -114,8 +116,14 @@ class Payment extends Component {
         console.log(data.result);
         this.setState({ errorMessage: data.result.errorMessage,
           errorType: data.result.errorType });
+        
+        if (data.status === "success") {
+          this.setState({success: true});
+          console.log(this.state.success)
+        }
       });
     });
+
     e.preventDefault();
   }
 
@@ -133,6 +141,15 @@ class Payment extends Component {
       let err = this.state.errorMessage;
       return !err || !err[attr] || err[attr] === "" ? "" : err[attr][0];
     };
+
+    if (this.state.success) {
+      return (
+        <div className="fullPageText">
+          <div>Payment Successful</div>
+          <img className="successCheck" src={successCheck}/>
+        </div>
+      )
+    }
 
     return (
       <div className="ConsumerForm">
