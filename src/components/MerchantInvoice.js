@@ -114,7 +114,7 @@ class MerchantInvoice extends Component {
       return !err || !err[attr] || err[attr] === "" ? "" : err[attr][0];
     };
 
-    if (this.state.alias != "") {
+    if (this.state.alias !== "" && this.state.alias !== undefined) {
       return (
         <div className="fullPageText">
           <div>Invoice Successfully Created</div>

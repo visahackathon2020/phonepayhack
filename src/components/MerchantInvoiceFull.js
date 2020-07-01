@@ -87,7 +87,7 @@ class MerchantInvoiceFull extends Component {
       );
     }
 
-    if (this.state.alias != "") {
+    if (this.state.alias !== "" && this.state.alias !== undefined) {
       return (
         <div className="fullPageText">
           <div>Invoice Successfully Created</div>
