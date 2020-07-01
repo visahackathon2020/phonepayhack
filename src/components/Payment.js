@@ -143,7 +143,7 @@ class Payment extends Component {
         <h1 className="smallVisaBlue">
           Merchant Name: {this.state.merchantName}
         </h1>
-        <h1 className="smallVisaBlue">Invoice Cost: {this.state.orderPrice}</h1>
+        <h1 className="smallVisaBlue">Invoice Cost: ${this.state.orderPrice}</h1>
         <h1 className="smallVisaBlue">
           Invoice Description: {this.state.invoiceDescription}
         </h1>
