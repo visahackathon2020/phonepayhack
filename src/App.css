@@ -151,6 +151,18 @@ input.form-control:hover {
   width: 300%;
 }
 
+.invalidText {
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  color: #1a1f71;
+  font-family: "Open Sans", sans-serif, Tahoma;
+  font-weight: 300;
+  font-size: 300%;
+  display: block;
+}
+
 #indicatorStripe {
   background: #f7b600;
   height: 3px;
