@@ -118,7 +118,7 @@ class MerchantInvoice extends Component {
       return (
         <div className="fullPageText">
           <div>Invoice Successfully Created</div>
-          <img src={successCheck}/>
+          <img className="successCheck" src={successCheck}/>
           <div>Payment Code: {this.state.alias}</div>
         </div>
       )
