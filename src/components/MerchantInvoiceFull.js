@@ -4,6 +4,7 @@ import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoadingPage from "./LoadingPage";
 import ItemsListForm from "./ItemsListForm";
+import successCheck from "../success.jpg"
 
 class MerchantInvoiceFull extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class MerchantInvoiceFull extends Component {
     this.state = {
       errorMessage: null,
       response: "Not yet requested",
-      alias: "No alias generated",
+      alias: "",
       name: "",
       email: "",
       country: "",
@@ -84,6 +85,16 @@ class MerchantInvoiceFull extends Component {
           <LoadingPage></LoadingPage>
         </div>
       );
+    }
+
+    if (this.state.alias != "") {
+      return (
+        <div className="fullPageText">
+          <div>Invoice Successfully Created</div>
+          <img className="successCheck" src={successCheck}/>
+          <div>Payment Code: {this.state.alias}</div>
+        </div>
+      )
     }
 
     // Set the error field class names
@@ -201,8 +212,8 @@ class MerchantInvoiceFull extends Component {
             </div>
           </div>
 
-          
-          
+
+
           <div className="theRow">
             <ItemsListForm
               action={this.handleItemsChange}
@@ -228,9 +239,6 @@ class MerchantInvoiceFull extends Component {
           </div>
         </Form>
         <br></br>
-        <h2 className="smallVisaBlue">Response: {this.state.response}</h2>
-        <h2 className="smallVisaBlue">Alias: {this.state.alias}</h2>
-        <h2 className="smallVisaBlue">Message Box: {this.state.messageBox}</h2>
       </div>
     );
   }
