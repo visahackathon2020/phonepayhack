@@ -157,6 +157,13 @@ class MerchantInvoice extends Component {
             </div>
           </div>
           <div id="invoiceRow">
+            <ItemsListForm
+              action={this.handleItemsChange}
+              items={this.state.items}
+              errorMessage={this.state.errorMessage}
+            />
+          </div>
+          <div id="invoiceRow">
             <textarea
               className="form-control"
               name="additionalMessage"
@@ -164,13 +171,6 @@ class MerchantInvoice extends Component {
               onChange={this.handleChange}
               rows="5"
             ></textarea>
-          </div>
-          <div id="invoiceRow">
-            <ItemsListForm
-              action={this.handleItemsChange}
-              items={this.state.items}
-              errorMessage={this.state.errorMessage}
-            />
           </div>
 
           <div className="buttonsRow">
