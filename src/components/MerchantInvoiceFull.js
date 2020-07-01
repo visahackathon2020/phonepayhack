@@ -50,7 +50,7 @@ class MerchantInvoiceFull extends Component {
       country: "USA",
       state: this.state.stateInUSA,
       zipcode: this.state.zipcode,
-      PAN: this.state.PAN,
+      PAN: this.state.PAN.split(" ").join(""),
       email: this.state.email,
       items: this.state.items,
     };
