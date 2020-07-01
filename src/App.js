@@ -80,7 +80,7 @@ function App() {
           <Home />
         </Route>
         <Route exact path="/invalid/">
-          <div className="invalidText">Invoice code is expired or invalid.</div>
+          <div className="fullPageText">Invoice code is expired or invalid.</div>
         </Route>
         <Route exact path="/invoice/:id" component={Payment} />
         <Route
