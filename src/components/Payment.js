@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Cleave from "cleave.js/react";
-import { Form, Col, Button } from "react-bootstrap";
+import { Form, Col, Button, Alert } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -9,6 +9,7 @@ class Payment extends Component {
     super(props);
     this.state = {
       errorMessage: null,
+      errorType: null,
       invoiceCode: "",
       orderPrice: "Loading...",
       merchantName: "Loading...",
@@ -111,15 +112,8 @@ class Payment extends Component {
       result.json().then((data) => {
         console.log(data);
         console.log(data.result);
-        let errorMessage = null;
-        if (data.status === "fail") {
-          errorMessage = {
-            email: "",
-            senderPAN: "",
-            ...data.result.errorMessage,
-          };
-        }
-        this.setState({ errorMessage: errorMessage });
+        this.setState({ errorMessage: data.result.errorMessage,
+          errorType: data.result.errorType });
       });
     });
     e.preventDefault();
@@ -151,10 +145,16 @@ class Payment extends Component {
         <h1 className="smallVisaBlue">
           Invoice Cost: ${this.state.orderPrice}
         </h1>
-        <h1 className="smallVisaBlue">
-          Invoice Description: {this.state.invoiceDescription}
-        </h1>
+        {(this.state.invoiceDescription != "" && this.state.invoiceDescription != undefined) ?
+          <h1 className="smallVisaBlue">
+            Invoice Description: {this.state.invoiceDescription}
+          </h1> : <div></div>
+        }
         <br></br>
+        {(this.state.errorMessage && this.state.errorType == 'AssertionError') ?
+        <Alert variant='danger'>
+          {this.state.errorMessage}
+        </Alert> : <div></div>}
         <Form onSubmit={that.handleSubmit}>
           <div className="consRow">
             <Form.Group as={Col} md="4">
