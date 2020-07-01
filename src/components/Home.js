@@ -43,6 +43,7 @@ class Home extends Component {
               0
             ),
             invoiceDescription: data.result.invoiceObj.items[0].desc,
+            invoiceCode: orderStr,
           });
         } else {
           this.setState({invalidCode: true});

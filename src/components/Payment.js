@@ -61,6 +61,7 @@ class Payment extends Component {
         merchantName: state.merchantName,
         orderPrice: state.orderPrice,
         invoiceDescription: state.invoiceDescription,
+        invoiceCode: state.invoiceCode,
       });
     }
   }
