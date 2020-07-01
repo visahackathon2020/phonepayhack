@@ -76,7 +76,8 @@
 
 .buttonsRow {
   display: inline;
-  
+  margin-left: 5px;
+  width: 75px !important;
 }
 
 #rightMarg {
@@ -110,7 +111,7 @@
 #leftMargItems {
   /* width: 40% !important; */
   display: block;
-  width: 40%;
+  width: 30%;
   flex-direction: horizontal;
   margin-left: 1%;
   font-family: "Open Sans", sans-serif,Tahoma;
@@ -295,16 +296,20 @@ input.form-control:hover {
 
 .itemsRow {
   display: flex;
+  width: 120%;
+  min-width: 260px;
   height: 40px;
   margin-bottom: 10px;
+  
 }
 
 #buttonBluePlusMinus {
   background-color: #1a1f71 !important;
   font-family: "Open Sans", sans-serif, Tahoma;
   font-size: 15px;
-  margin-left: 10px;
+  margin-left: 5%;
   
-  display: absolute;
+  display: inline;
   align-items: center;
+
 }
