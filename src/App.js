@@ -1,6 +1,5 @@
 import React from "react";
 import { Switch, Route, Link, Redirect } from "react-router-dom";
-import "./App.css";
 import { Nav, Navbar } from "react-bootstrap";
 import Home from "./components/Home";
 import MerchantInvoiceFull from "./components/MerchantInvoiceFull.js";
@@ -80,7 +79,9 @@ function App() {
           <Home />
         </Route>
         <Route exact path="/invalid/">
-          <div className="fullPageText">Invoice code is expired or invalid.</div>
+          <div className="fullPageText">
+            Invoice code is expired or invalid.
+          </div>
         </Route>
         <Route exact path="/invoice/:id" component={Payment} />
         <Route
