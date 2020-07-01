@@ -151,9 +151,11 @@ class Payment extends Component {
         <h1 className="smallVisaBlue">
           Invoice Cost: ${this.state.orderPrice}
         </h1>
-        <h1 className="smallVisaBlue">
-          Invoice Description: {this.state.invoiceDescription}
-        </h1>
+        {(this.state.invoiceDescription != "" && this.state.invoiceDescription != undefined) ?
+          <h1 className="smallVisaBlue">
+            Invoice Description: {this.state.invoiceDescription}
+          </h1> : <div></div>
+        }
         <br></br>
         <Form onSubmit={that.handleSubmit}>
           <div className="consRow">
