@@ -32,27 +32,37 @@ class Payment extends Component {
       match: { params },
     } = this.props;
     const orderStr = params.id;
+    const state = this.props.location.state
+    console.log("state",state, this.props)
     console.log(orderStr);
-    this.setState({ invoiceCode: orderStr });
-    fetch("https://kylepence.dev:5000/invoices/" + orderStr)
-      .then((response) => {
-        if (response.ok) return response.json();
-        throw new Error("Request failed.");
-      })
-      .then((data) => {
-        console.log(data);
-        this.setState({
-          merchantName: data.result.invoiceObj.businessName + " ",
-          orderPrice: data.result.invoiceObj.items.reduce(
-            (acc, e) => e.amount + acc,
-            0
-          ),
-          invoiceDescription: data.result.invoiceObj.items[0].desc,
+    if (state === undefined) {
+      this.setState({ invoiceCode: orderStr });
+      fetch("https://kylepence.dev:5000/invoices/" + orderStr)
+        .then((response) => {
+          if (response.ok) return response.json();
+          throw new Error("Request failed.");
+        })
+        .then((data) => {
+          console.log(data);
+          this.setState({
+            merchantName: data.result.invoiceObj.businessName + " ",
+            orderPrice: data.result.invoiceObj.items.reduce(
+              (acc, e) => e.amount + acc,
+              0
+            ),
+            invoiceDescription: data.result.invoiceObj.items[0].desc,
+          });
+        })
+        .catch((error) => {
+          this.props.history.push("/invalid");
         });
-      })
-      .catch((error) => {
-        this.props.history.push("/invalid");
+    } else {
+      this.setState({
+        merchantName: state.merchantName,
+        orderPrice: state.orderPrice,
+        invoiceDescription: state.invoiceDescription,
       });
+    }
   }
 
   handleEmailChange(e) {
@@ -114,23 +124,16 @@ class Payment extends Component {
     const that = this;
     // Do this for the form submission https://stackoverflow.com/questions/23427384/get-form-data-in-reactjs
     // Set the error field class names
-    const getFormClass = (errMsg, errMsgField, defaultClass) => {
-      return errMsg
-        ? errMsgField !== ""
-          ? `form-invalid-border ${defaultClass}`
-          : defaultClass
-        : defaultClass;
+    const getFormClass = (attr) => {
+      let err = this.state.errorMessage;
+      return !err || !err[attr] || err[attr] === ""
+        ? ""
+        : "form-invalid-border";
     };
-    const formEmailClass = getFormClass(
-      this.state.errorMessage,
-      this.state.errorMessage ? this.state.errorMessage.email : null,
-      ""
-    );
-    const formPANClass = getFormClass(
-      this.state.errorMessage,
-      this.state.errorMessage ? this.state.errorMessage.senderPAN : null,
-      "form-control"
-    );
+    const getErrorMessage = (attr) => {
+      let err = this.state.errorMessage;
+      return !err || !err[attr] || err[attr] === "" ? "" : err[attr][0];
+    };
 
     return (
       <div className="ConsumerForm">
@@ -164,15 +167,13 @@ class Payment extends Component {
             <Form.Group as={Col} md="4">
               <div className="form-field">
                 <Form.Control
-                  className={formEmailClass}
+                  className={getFormClass('email')}
                   type="email"
                   placeholder="Enter email"
                   onChange={that.handleEmailChange}
                 />
                 <label className="text-danger form-invalid-feedback">
-                  {this.state.errorMessage
-                    ? this.state.errorMessage.email[0]
-                    : ""}
+                  {getErrorMessage('email')}
                 </label>
               </div>
             </Form.Group>
@@ -181,15 +182,13 @@ class Payment extends Component {
             <Form.Group as={Col} md="6">
               <div className="form-field">
                 <Cleave
-                  className={formPANClass}
+                  className={getFormClass('senderPAN')}
                   placeholder="Card Number"
                   options={{ creditCard: true }}
                   onChange={that.handleCreditCardChange}
                 />
                 <label className="text-danger form-invalid-feedback">
-                  {this.state.errorMessage
-                    ? this.state.errorMessage.senderPAN[0]
-                    : ""}
+                  {getErrorMessage('senderPAN')}
                 </label>
               </div>
             </Form.Group>
