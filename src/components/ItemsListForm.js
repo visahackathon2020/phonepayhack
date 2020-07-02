@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Cleave from "cleave.js/react";
 import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -14,7 +15,9 @@ class ItemsListForm extends Component {
   handleAmtChange(item) {
     return (e) => {
       let items = this.props.items;
-      items[item].amount = e.target.value;
+      if (e.target.value.match()) {
+        items[item].amount = e.target.value;
+      }
       this.props.action(items);
     };
   }
@@ -84,15 +87,12 @@ class ItemsListForm extends Component {
               </div>
 
               <div className="form-field" id="leftMargItems">
-                <Form.Control
-                  className={getFormClass(item, "amount")}
+                <Cleave
+                  className={`${getFormClass(item, "amount")} form-control`}
                   placeholder="Price"
-                  type="number"
-                  min="0"
+                  options={{ numeral: true, numeralDecimalScale: 2 }}
                   onChange={this.handleAmtChange(item)}
                   value={this.props.items[item].amount}
-                  step=".01"
-                  required
                 />
                 <label className="text-danger form-invalid-feedback">
                   {geterrorMessage(item, "amount")[0]}

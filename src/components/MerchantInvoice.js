@@ -69,7 +69,11 @@ class MerchantInvoice extends Component {
   }
 
   handleItemsChange(_items) {
-    this.setState({ items: _items });
+    this.setState({ items: _items,
+      errorMessage: this.state.errorMessage
+        ? { ...this.state.errorMessage, items: null }
+        : null,
+    });
   }
 
   handleSubmit(e) {
