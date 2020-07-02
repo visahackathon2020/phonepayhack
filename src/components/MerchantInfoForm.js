@@ -39,6 +39,10 @@ class MerchantInfoForm extends Component {
   handleChanges(event) {
     this.setState({
       [event.target.name]: event.target.value,
+      errorMessage: this.state.errorMessage
+        ? { ...this.state.errorMessage, [event.target.name]: null }
+        : null,
+      errorType: null,
     });
   }
 
