@@ -54,7 +54,7 @@
 
 .theRow {
   display: flex;
-  flex-direction: horizontal;
+  flex-direction: row;
   margin-left: 10%;
   margin-right: 10%;
 }
@@ -80,6 +80,12 @@
   width: 75px !important;
 }
 
+.itemsButtonsRow {
+  display: flex;
+  margin-left: 5px;
+  width: 75px !important;
+}
+
 #rightMarg {
   margin-right: 1%;
   width: 50% !important;
@@ -92,6 +98,7 @@
   width: 40%;
   flex-direction: horizontal;
   margin-right: 1%;
+  margin-bottom: 2%;
   font-family: "Open Sans", sans-serif, Tahoma;
   font-weight: 300;
 }
@@ -114,6 +121,7 @@
   width: 30%;
   flex-direction: horizontal;
   margin-left: 1%;
+  margin-bottom: 2%;
   font-family: "Open Sans", sans-serif, Tahoma;
   font-weight: 300;
 }

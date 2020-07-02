@@ -90,7 +90,7 @@ class ItemsListForm extends Component {
                 <Cleave
                   className={`${getFormClass(item, "amount")} form-control`}
                   placeholder="Price"
-                  options={{ numeral: true, numeralDecimalScale: 2 }}
+                  options={{ numeral: true, numeralDecimalScale: 2, delimiter:'' }}
                   onChange={this.handleAmtChange(item)}
                   value={this.props.items[item].amount}
                 />
@@ -99,7 +99,7 @@ class ItemsListForm extends Component {
                 </label>
               </div>
               {items.length > 1 ? (
-                <div className="buttonsRow">
+                <div className="itemsButtonsRow">
                   <Button
                     variant="primary"
                     id="buttonBluePlusMinus"
