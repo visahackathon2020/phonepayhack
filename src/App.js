@@ -71,7 +71,7 @@ function App() {
             </>
           ) : (
             <Link className="navText" to="/login">
-              Login
+              Merchant Login
             </Link>
           )}
         </Nav>

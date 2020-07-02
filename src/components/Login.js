@@ -35,7 +35,7 @@ function Login() {
       .catch((err) => {
         console.log(err);
         if (err.code === "auth/user-not-found") {
-          firebase.createUser({ email, password, email }).catch((err) => {
+          firebase.createUser({ email, password }).catch((err) => {
             setError(err.message);
           });
         } else {

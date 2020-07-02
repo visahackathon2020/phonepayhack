@@ -4,7 +4,7 @@ import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoadingPage from "./LoadingPage";
 import ItemsListForm from "./ItemsListForm";
-import successCheck from "../success.jpg"
+import successCheck from "../success.jpg";
 
 class MerchantInvoiceFull extends Component {
   constructor(props) {
@@ -91,10 +91,10 @@ class MerchantInvoiceFull extends Component {
       return (
         <div className="fullPageText">
           <div>Invoice Successfully Created</div>
-          <img className="successCheck" src={successCheck}/>
+          <img className="successCheck" src={successCheck} alt="success" />
           <div>Payment Code: {this.state.alias}</div>
         </div>
-      )
+      );
     }
 
     // Set the error field class names
@@ -208,11 +208,9 @@ class MerchantInvoiceFull extends Component {
               </label>
             </div>
             <div className="form-field" id="leftMarg">
-              <Form.Control  placeholder="Transaction Type (Food, Retail, ...)"/>
+              <Form.Control placeholder="Transaction Type (Food, Retail, ...)" />
             </div>
           </div>
-
-
 
           <div className="theRow">
             <ItemsListForm
@@ -223,12 +221,12 @@ class MerchantInvoiceFull extends Component {
           </div>
 
           <div className="additionalMsg">
-              <textarea
-                className={`${getFormClass("additionalMessage")} form-control`}
-                placeholder="Additional Message"
-                onChange={that.handleChanges}
-                rows="3"
-              />
+            <textarea
+              className={`${getFormClass("additionalMessage")} form-control`}
+              placeholder="Additional Message"
+              onChange={that.handleChanges}
+              rows="3"
+            />
           </div>
 
           <div className="buttonsRow">

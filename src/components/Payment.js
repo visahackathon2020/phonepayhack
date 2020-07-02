@@ -4,7 +4,7 @@ import { Form, Col, Button, Alert } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ConsumerItemListForm from "./ConsumerItemListForm";
-import successCheck from "../success.jpg"
+import successCheck from "../success.jpg";
 
 class Payment extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class Payment extends Component {
       orderPrice: "Loading...",
       merchantName: "Loading...",
       invoiceDescription: "Loading...",
-      creditCard: "",
+      senderPAN: "",
       expiration: "",
       CVV: "",
       email: "",
@@ -26,8 +26,6 @@ class Payment extends Component {
       emailReceipt: false,
       items: null,
     };
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handleCreditCardChange = this.handleCreditCardChange.bind(this);
     this.handleChanges = this.handleChanges.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -74,34 +72,20 @@ class Payment extends Component {
     }
   }
 
-  handleEmailChange(e) {
-    this.setState({
-      email: e.target.value,
-      errorMessage: this.state.errorMessage
-        ? { ...this.state.errorMessage, email: "" }
-        : null,
-    });
-  }
-
-  handleCreditCardChange(e) {
-    this.setState({
-      creditCard: e.target.value,
-      errorMessage: this.state.errorMessage
-        ? { ...this.state.errorMessage, senderPAN: "" }
-        : null,
-    });
-  }
-
   handleChanges(event) {
     this.setState({
       [event.target.name]: event.target.value,
+      errorMessage: this.state.errorMessage
+        ? { ...this.state.errorMessage, [event.target.name]: null }
+        : null,
+      errorType: null,
     });
   }
 
   handleSubmit(e) {
     var url = "https://kylepence.dev:5000/payment";
     var myPostBody = {
-      senderPAN: this.state.creditCard.split(" ").join(""),
+      senderPAN: this.state.senderPAN.split(" ").join(""),
       invoiceId: this.state.invoiceCode,
       email: this.state.email,
     };
@@ -115,12 +99,13 @@ class Payment extends Component {
       result.json().then((data) => {
         console.log(data);
         console.log(data.result);
-        this.setState({ errorMessage: data.result.errorMessage,
-          errorType: data.result.errorType });
-        
+        this.setState({
+          errorMessage: data.result.errorMessage,
+          errorType: data.result.errorType,
+        });
+
         if (data.status === "success") {
-          this.setState({success: true});
-          console.log(this.state.success)
+          this.setState({ success: true });
         }
       });
     });
@@ -147,9 +132,9 @@ class Payment extends Component {
       return (
         <div className="fullPageText">
           <div>Payment Successful</div>
-          <img className="successCheck" src={successCheck}/>
+          <img className="successCheck" src={successCheck} alt="success" />
         </div>
-      )
+      );
     }
 
     return (
@@ -161,41 +146,41 @@ class Payment extends Component {
           Merchant Name: {this.state.merchantName}
         </h1>
         <h1 className="smallVisaBlue">
-          Invoice Cost: ${this.state.orderPrice}
+          Invoice Cost: ${parseFloat(this.state.orderPrice).toFixed(2)}
         </h1>
-        {(this.state.invoiceDescription != "" && this.state.invoiceDescription != undefined) ?
-          <h1 className="smallVisaBlue">
-            Invoice Description: {this.state.invoiceDescription}
-          </h1> : <div></div>
-        }
+        {this.state.invoiceDescription !== "" &&
+          this.state.invoiceDescription !== undefined && (
+            <h1 className="smallVisaBlue">
+              Invoice Description: {this.state.invoiceDescription}
+            </h1>
+          )}
         <br></br>
-        {(this.state.errorMessage && this.state.errorType == 'AssertionError') ?
-        <Alert variant='danger'>
-          {this.state.errorMessage}
-        </Alert> : <div></div>}
         <Form onSubmit={that.handleSubmit}>
           <div className="consRow">
             <Form.Group as={Col} md="4">
               <Form.Control
                 name="firstName"
-                placeholder="First name"
+                placeholder="First name*"
                 onChange={that.handleChanges}
+                required
               />
             </Form.Group>
             <Form.Group as={Col} md="4">
               <Form.Control
                 name="lastName"
-                placeholder="Last name"
+                placeholder="Last name*"
                 onChange={that.handleChanges}
+                required
               />
             </Form.Group>
             <Form.Group as={Col} md="4">
               <div className="form-field">
                 <Form.Control
                   className={getFormClass("email")}
+                  name="email"
                   type="email"
                   placeholder="Enter email"
-                  onChange={that.handleEmailChange}
+                  onChange={that.handleChanges}
                 />
                 <label className="text-danger form-invalid-feedback">
                   {getErrorMessage("email")}
@@ -208,9 +193,11 @@ class Payment extends Component {
               <div className="form-field">
                 <Cleave
                   className={`${getFormClass("senderPAN")} form-control`}
-                  placeholder="Card Number"
+                  name="senderPAN"
+                  placeholder="Card Number*"
                   options={{ creditCard: true }}
-                  onChange={that.handleCreditCardChange}
+                  onChange={that.handleChanges}
+                  required
                 />
                 <label className="text-danger form-invalid-feedback">
                   {getErrorMessage("senderPAN")}
@@ -220,18 +207,21 @@ class Payment extends Component {
             <Form.Group as={Col} md="3">
               <Cleave
                 className="form-control"
-                placeholder="MM/YY"
+                placeholder="MM/YY*"
                 options={{ date: true, datePattern: ["m", "y"] }}
                 onChange={that.handleChanges}
+                required
               />
               <div className="invalid-feedback">Invalid Expiration Date.</div>
             </Form.Group>
             <Form.Group as={Col} md="3">
               <Form.Control
                 name="CVV"
-                placeholder="CVV"
+                placeholder="CVV*"
+                maxLength="4"
                 onChange={that.handleChanges}
-                pattern="\d{3,4}"
+                pattern="[0-9]+"
+                required
               />
               <div className="invalid-feedback">Invalid CVV.</div>
             </Form.Group>

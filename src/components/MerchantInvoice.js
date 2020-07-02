@@ -5,7 +5,7 @@ import firebase from "firebase/app";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ItemsListForm from "./ItemsListForm";
 import LoadingPage from "./LoadingPage";
-import successCheck from "../success.jpg"
+import successCheck from "../success.jpg";
 
 class MerchantInvoice extends Component {
   constructor(props) {
@@ -26,7 +26,6 @@ class MerchantInvoice extends Component {
   }
 
   componentDidMount() {
-    console.log("mount");
     let that = this;
     firebase
       .auth()
@@ -44,7 +43,8 @@ class MerchantInvoice extends Component {
           result.json().then((data) => {
             console.log(data);
             const docExists = data.result.docExists.toLowerCase() === "true";
-            const docPopulated = data.result.docPopulated.toLowerCase() === "true";
+            const docPopulated =
+              data.result.docPopulated.toLowerCase() === "true";
             if (!docExists || !docPopulated) {
               this.props.history.push("/merchantform");
             }
@@ -119,10 +119,10 @@ class MerchantInvoice extends Component {
       return (
         <div className="fullPageText">
           <div>Invoice Successfully Created</div>
-          <img className="successCheck" src={successCheck}/>
+          <img className="successCheck" src={successCheck} alt="success" />
           <div>Payment Code: {this.state.alias}</div>
         </div>
-      )
+      );
     }
 
     return (
