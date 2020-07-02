@@ -3,6 +3,7 @@ import Cleave from "cleave.js/react";
 import { Form, Col, Button, Alert } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ConsumerItemListForm from "./ConsumerItemListForm";
 import successCheck from "../success.jpg"
 
 class Payment extends Component {
@@ -246,6 +247,12 @@ class Payment extends Component {
                 />
               </Form.Group>
             </div>
+          </div>
+          <div className="theRow">
+            <ConsumerItemListForm
+              items={this.state.items}
+              orderPrice={this.state.orderPrice}
+            />
           </div>
           <div className="buttonsRow">
             <Button

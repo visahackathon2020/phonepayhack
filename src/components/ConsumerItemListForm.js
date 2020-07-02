@@ -31,7 +31,7 @@ class ConsumerItemListForm extends Component {
         )}
           <tr>
             <td>Total</td>
-            <td>{this.props.items.reduce((item) => { item.amount })}</td>
+            <td>{this.props.orderPrice}</td>
           </tr>
         </tbody>
       </Table>
