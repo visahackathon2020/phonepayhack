@@ -4,14 +4,14 @@ import github from "../GitHub-Mark-Light-32px.png";
 
 function Footer() {
   return (
-    <div className="footer fixed-bottom">
+    <div className="footer bottom">
       <div className="footer-row">
-        <Logo style={{ width: "100px", height: "60px" }} />
+        <Logo style={{ width: "100px", height: "30px" }} />
         <span style={{ margin: "auto" }}>
           Made with love, by p4nd3m1c.c0d3r5
         </span>
       </div>
-      <div className="footer-social fixed-bottom">
+      <div className="footer-social bottom">
         <div className="footer-row">
           <a className="github-icon" href="https://github.com/anqingchen">
             <img src={github} alt="" />

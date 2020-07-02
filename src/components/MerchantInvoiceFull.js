@@ -235,6 +235,7 @@ class MerchantInvoiceFull extends Component {
               <span id="goldenArrow">➤</span>
             </Button>
           </div>
+          <br></br>
         </Form>
         <br></br>
       </div>

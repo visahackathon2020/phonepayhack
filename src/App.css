@@ -63,7 +63,7 @@
   display: absolute;
   margin-left: 10%;
   margin-right: 10%;
-  margin-bottom: 1.5%;
+  margin-bottom: 0%;
   margin-top: 0.5%;
 }
 
@@ -395,19 +395,20 @@ input.form-control:hover {
 
 .footer {
   width: 100vw;
-  min-height: 120px;
+  min-height: 80px;
   background-color: #d8d8d8;
   padding-top: 10px;
+  bottom: 0px;
 }
 
 .footer-social {
   background-color: #585858;
-  min-height: 40px;
+  min-height: 0px;
 }
 
 .footer-row {
   width: 100%;
-  padding: 0 60px;
+  padding: 0 30px;
   display: flex;
   text-align: center;
   justify-content: center;
@@ -415,7 +416,7 @@ input.form-control:hover {
 }
 
 .github-icon {
-  margin-top: 6px;
+  margin-top: 3px;
   margin-left: 16px;
   text-decoration: none;
 }

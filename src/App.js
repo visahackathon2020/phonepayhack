@@ -108,7 +108,7 @@ function App() {
             <MerchantInfoForm />
           </PrivateRoute>
         </Switch>
-        <Footer />
+        
       </AuthIsLoaded>
     </div>
   );
