@@ -193,13 +193,13 @@ input.form-control:hover {
 }
 
 .login-form {
-  --text-color: black;
+  --text-color: #495057;
   margin: auto;
   background-color: white;
   padding: 1rem;
   text-align: center;
   border-radius: 20px;
-  box-shadow: black;
+  box-shadow: #495057;
   width: 20rem;
 }
 
@@ -224,7 +224,6 @@ input.form-control:hover {
   background: none;
   color: black;
   font-size: 1.2em;
-  font-weight: bold;
   transition: border 500ms;
 }
 
