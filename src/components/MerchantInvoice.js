@@ -12,7 +12,7 @@ class MerchantInvoice extends Component {
     super(props);
     this.state = {
       businessName: "",
-      businessEmail: "",
+      email: "",
       additionalMessage: "",
       idToken: "",
       alias: "",
@@ -62,6 +62,9 @@ class MerchantInvoice extends Component {
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
+      errorMessage: this.state.errorMessage
+        ? { ...this.state.errorMessage, [event.target.name]: null }
+        : null,
     });
   }
 
@@ -74,7 +77,7 @@ class MerchantInvoice extends Component {
     const myProps = {
       merchantToken: this.state.idToken,
       businessName: this.state.businessName,
-      email: this.state.businessEmail,
+      email: this.state.email,
       items: this.state.items,
     };
     const url = "https://kylepence.dev:5000/invoices";
@@ -148,7 +151,7 @@ class MerchantInvoice extends Component {
             <div className="form-field" id="center">
               <Form.Control
                 className={getFormClass("email")}
-                name="businessEmail"
+                name="email"
                 placeholder="Business email"
                 onChange={this.handleChange}
               />

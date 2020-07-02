@@ -7,6 +7,7 @@ import MerchantInfoForm from "./components/MerchantInfoForm";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
 import Payment from "./components/Payment";
+import Footer from "./components/Footer";
 import { isLoaded, isEmpty } from "react-redux-firebase";
 import { useSelector } from "react-redux";
 import MerchantInvoice from "./components/MerchantInvoice";
@@ -45,71 +46,70 @@ function App() {
 
   return (
     <div>
-      <Navbar className="navBlue">
-        <Navbar.Brand>
-          <img
-            src="https://cdn.visa.com/cdn/assets/images/logos/visa/logo.png"
-            className="visaLogo"
-            alt="visa logo"
-          ></img>
-        </Navbar.Brand>
-        <Nav className="navBlue" id="navOptions">
-          <Link className="navText" to="/">
-            Consumer
-          </Link>
-          <Link className="navText" to="/merchant">
-            Merchant
-          </Link>
-          {isLoaded(auth) && !isEmpty(auth) ? (
-            <>
-              <Link className="navText" to="/merchantform">
-                Update Info
-              </Link>
-              <Link className="navText" to="/logout">
-                Logout
-              </Link>
-            </>
-          ) : (
-            <Link className="navText" to="/login">
-              Merchant Login
+      <AuthIsLoaded>
+        <Navbar className="navBlue">
+          <Navbar.Brand href="/">
+            <img
+              src="https://cdn.visa.com/cdn/assets/images/logos/visa/logo.png"
+              className="visaLogo"
+              alt="visa logo"
+            ></img>
+          </Navbar.Brand>
+          <Nav className="navBlue" id="navOptions">
+            <Link className="navText" to="/">
+              Consumer
             </Link>
-          )}
-        </Nav>
-      </Navbar>
-      <div id="indicatorStripe"></div>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route exact path="/invoice/">
-          <Home />
-        </Route>
-        <Route exact path="/invalid/">
-          <div className="fullPageText">
-            Invoice code is expired or invalid.
-          </div>
-        </Route>
-        <Route exact path="/invoice/:id" component={Payment} />
-        <Route
-          path="/merchant"
-          render={({ location }) =>
-            isLoaded(auth) && !isEmpty(auth) ? (
-              <AuthIsLoaded>
-                <MerchantInvoice />
-              </AuthIsLoaded>
+            <Link className="navText" to="/merchant">
+              Merchant
+            </Link>
+            {isLoaded(auth) && !isEmpty(auth) ? (
+              <>
+                <Link className="navText" to="/merchantform">
+                  Update Info
+                </Link>
+                <Link className="navText" to="/logout">
+                  Logout
+                </Link>
+              </>
             ) : (
-              <MerchantInvoiceFull />
-            )
-          }
-        />
-        <Route path="/login" component={Login} />
-        <Route path="/logout" component={Logout} />
-        <AuthIsLoaded>
+              <Link className="navText" to="/login">
+                Merchant Login
+              </Link>
+            )}
+          </Nav>
+        </Navbar>
+        <div id="indicatorStripe"></div>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/invoice/">
+            <Home />
+          </Route>
+          <Route exact path="/invalid/">
+            <div className="fullPageText">
+              Invoice code is expired or invalid.
+            </div>
+          </Route>
+          <Route exact path="/invoice/:id" component={Payment} />
+          <Route
+            path="/merchant"
+            render={({ location }) =>
+              isLoaded(auth) && !isEmpty(auth) ? (
+                <MerchantInvoice />
+              ) : (
+                <MerchantInvoiceFull />
+              )
+            }
+          />
+          <Route path="/login" component={Login} />
+          <Route path="/logout" component={Logout} />
           <PrivateRoute path="/merchantform">
             <MerchantInfoForm />
           </PrivateRoute>
-        </AuthIsLoaded>
-      </Switch>
+        </Switch>
+        <Footer />
+      </AuthIsLoaded>
     </div>
   );
 }

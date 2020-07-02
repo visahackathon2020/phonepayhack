@@ -369,16 +369,18 @@ input.form-control:hover {
 }
 
 .itemsListForm {
+  margin: 20px 0;
   display: inline-block;
   width: 100%;
 }
 
 .itemsRow {
   display: flex;
-  width: 120%;
+  width: 100%;
   min-width: 260px;
   height: 40px;
   margin-bottom: 10px;
+  justify-content: center;
 }
 
 #buttonBluePlusMinus {
@@ -389,4 +391,44 @@ input.form-control:hover {
 
   display: inline;
   align-items: center;
+}
+
+.footer {
+  width: 100vw;
+  min-height: 120px;
+  background-color: #d8d8d8;
+  padding-top: 10px;
+}
+
+.footer-social {
+  background-color: #585858;
+  min-height: 40px;
+}
+
+.footer-row {
+  width: 100%;
+  padding: 0 60px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.github-icon {
+  margin-top: 6px;
+  margin-left: 16px;
+  text-decoration: none;
+}
+
+.github-icon img {
+  height: 25px;
+}
+
+.github-icon span {
+  margin-left: 10px;
+  color: white;
+}
+
+.github-icon:hover {
+  text-decoration: none;
 }

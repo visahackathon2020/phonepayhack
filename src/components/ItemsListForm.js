@@ -73,61 +73,58 @@ class ItemsListForm extends Component {
               <div className="form-field" id="rightMargItems">
                 <Form.Control
                   className={getFormClass(item, "desc")}
-                  placeholder="Item Description"
+                  placeholder="Item"
                   onChange={this.handleDescChange(item)}
                   value={this.props.items[item].desc}
-                  
+                  required
                 />
                 <label className="text-danger form-invalid-feedback">
                   {geterrorMessage(item, "desc")[0]}
                 </label>
               </div>
-              
-              <div
-                className="form-field"
-                id="leftMargItems"
-                
-              >
+
+              <div className="form-field" id="leftMargItems">
                 <Form.Control
                   className={getFormClass(item, "amount")}
-                  placeholder="Item Amount"
+                  placeholder="Price"
+                  type="number"
+                  min="0"
                   onChange={this.handleAmtChange(item)}
                   value={this.props.items[item].amount}
-                  
+                  step=".01"
+                  required
                 />
                 <label className="text-danger form-invalid-feedback">
                   {geterrorMessage(item, "amount")[0]}
                 </label>
               </div>
               {items.length > 1 ? (
-                  <div className="buttonsRow">
-                    <Button
-                      variant="primary"
-                      id="buttonBluePlusMinus"
-                      onClick={this.handleAddNewItem}
-                    >
-                      +
-                    </Button>
-                    <Button
-                      variant="primary"
-                      id="buttonBluePlusMinus"
-                      onClick={this.handleRemoveItem(item)}
-                    >
-                      -
-                    </Button>
-                  </div>
-                  
-                
+                <div className="buttonsRow">
+                  <Button
+                    variant="primary"
+                    id="buttonBluePlusMinus"
+                    onClick={this.handleAddNewItem}
+                  >
+                    +
+                  </Button>
+                  <Button
+                    variant="primary"
+                    id="buttonBluePlusMinus"
+                    onClick={this.handleRemoveItem(item)}
+                  >
+                    -
+                  </Button>
+                </div>
               ) : (
                 <div className="buttonsRow">
-                    <Button
-                      variant="primary"
-                      id="buttonBluePlusMinus"
-                      onClick={this.handleAddNewItem}
-                    >
-                      +
-                    </Button>
-                  </div>
+                  <Button
+                    variant="primary"
+                    id="buttonBluePlusMinus"
+                    onClick={this.handleAddNewItem}
+                  >
+                    +
+                  </Button>
+                </div>
               )}
             </div>
           </div>
