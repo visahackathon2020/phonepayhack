@@ -44,7 +44,8 @@ class MerchantInvoice extends Component {
           result.json().then((data) => {
             console.log(data);
             const docExists = data.result.docExists.toLowerCase() === "true";
-            if (!docExists) {
+            const docPopulated = data.result.docPopulated.toLowerCase() === "true";
+            if (!docExists || !docPopulated) {
               this.props.history.push("/merchantform");
             }
           });
