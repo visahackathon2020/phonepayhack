@@ -10,7 +10,7 @@ import * as serviceWorker from "./serviceWorker";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 
 const fbConfig = {
-  apiKey: "***REMOVED***",
+  apiKey: "AIzaSyDerHt8xDtrvOoXSG459u916mbv8hsD4Pw",
   authDomain: "phonepayhack.firebaseapp.com",
   databaseURL: "https://phonepayhack.firebaseio.com",
   projectId: "phonepayhack",
