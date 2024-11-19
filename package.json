@@ -8,7 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.5.0",
     "cleave.js": "^1.6.0",
-    "firebase": "^7.15.4",
+    "firebase": "^10.9.0",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
